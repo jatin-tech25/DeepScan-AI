@@ -1,0 +1,113 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "wb-mumbai",
+        "name": "Mumbai Versova Coast & Mahim Creek",
+        "category": "Coastal Estuary / Urban Shoreline",
+        "state": "Maharashtra, India",
+        "basin": "Arabian Sea",
+        "smpi_score": 88,
+        "severity": "Severe",
+        "dominant_debris": "Single-use Polyethylene & Degraded Packaging",
+        "estimated_annual_plastic_tonnes": 12400,
+        "cleanup_priority": "Critical Intervention",
+        "description": "High-density urban coastal outflow zone subject to heavy tidal trash washback and mangrove microplastic trapping."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [72.78, 19.16],
+            [72.84, 19.16],
+            [72.85, 19.03],
+            [72.81, 19.03],
+            [72.78, 19.16]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "wb-ganga-delta",
+        "name": "Ganga-Hooghly Delta Outflow (Sundarbans)",
+        "category": "Major Riverine Delta",
+        "state": "West Bengal, India",
+        "basin": "Bay of Bengal",
+        "smpi_score": 82,
+        "severity": "High",
+        "dominant_debris": "Macroplastics, Ghost Fishing Traps & Silt Debris",
+        "estimated_annual_plastic_tonnes": 72000,
+        "cleanup_priority": "High Priority",
+        "description": "Primary riverine conveyor of plastic waste into the Northern Bay of Bengal convergence zone."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [88.35, 22.57],
+          [88.22, 22.31],
+          [88.16, 21.95],
+          [88.10, 21.62],
+          [88.05, 21.35]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "wb-gulf-mannar",
+        "name": "Gulf of Mannar Coral Biosphere Reserve",
+        "category": "Protected Marine Sanctuary",
+        "state": "Tamil Nadu, India",
+        "basin": "Indian Ocean",
+        "smpi_score": 64,
+        "severity": "Moderate-High",
+        "dominant_debris": "Abandoned Nylon Gillnets (Ghost Gear) & Monofilament Lines",
+        "estimated_annual_plastic_tonnes": 3200,
+        "cleanup_priority": "Immediate Ghost Net Extraction",
+        "description": "Ecologically sensitive coral atoll corridor with high risk of dugong and marine turtle net entanglement."
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [78.85, 9.25],
+            [79.35, 9.25],
+            [79.20, 8.80],
+            [78.60, 8.80],
+            [78.85, 9.25]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "wb-vembannad",
+        "name": "Vembanad Lake & Kochi Estuary",
+        "category": "Ramsar Wetland & Harbor Channel",
+        "state": "Kerala, India",
+        "basin": "Arabian Sea Outflow",
+        "smpi_score": 58,
+        "severity": "Moderate",
+        "dominant_debris": "Tourist PET Bottles & Polypropylene Ropes",
+        "estimated_annual_plastic_tonnes": 4600,
+        "cleanup_priority": "Continuous Skimmer Patrol",
+        "description": "India's longest wetland lake facing seasonal plastic accumulation during monsoon harbor discharge."
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [76.32, 9.98],
+          [76.36, 9.85],
+          [76.39, 9.72],
+          [76.45, 9.55],
+          [76.51, 9.48]
+        ]
+      }
+    }
+  ]
+}

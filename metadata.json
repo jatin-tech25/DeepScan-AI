@@ -1,0 +1,6 @@
+{
+  "name": "Deep Scan AI",
+  "description": "AI-Powered Marine Debris Detection & Ocean Monitoring System with real-time computer vision, IoT sensor telemetry, geospatial mapping, and multilingual AI assistant.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
