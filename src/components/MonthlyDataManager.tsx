@@ -1097,3 +1097,4 @@ export const MonthlyDataManager: React.FC<MonthlyDataManagerProps> = ({
     </div>
   );
 };
+

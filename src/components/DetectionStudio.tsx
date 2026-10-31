@@ -20,7 +20,8 @@ import {
   Eye,
   FileText,
   Compass,
-  MapPin
+  MapPin,
+  CheckCircle2
 } from 'lucide-react';
 import { soundEngine } from '../services/soundEngine';
 import { DetectionRecord, DetectedItem } from '../types';
@@ -35,6 +36,8 @@ interface DetectionStudioProps {
     autoScan?: boolean;
     scanId?: number;
   } | null;
+  inspectedRecord?: DetectionRecord | null;
+  onNavigateToArchive?: () => void;
 }
 
 export interface PresetItem {
@@ -147,6 +150,8 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
   onDetectionAdded,
   recentDetections,
   targetScanLocation,
+  inspectedRecord,
+  onNavigateToArchive,
 }) => {
   const [activeImagingMode, setActiveImagingMode] = useState<'sonar' | 'optical'>('sonar');
   const [selectedPresetId, setSelectedPresetId] = useState<string>('s-1');
@@ -154,9 +159,10 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
   const [locationName, setLocationName] = useState<string>(ALL_PRESETS[0].locationName);
   const [coordinates, setCoordinates] = useState({ lat: ALL_PRESETS[0].lat, lng: ALL_PRESETS[0].lng });
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
-  const [analysisResult, setAnalysisResult] = useState<DetectionRecord | null>(
-    recentDetections[0] || null
-  );
+  const [analysisResult, setAnalysisResult] = useState<DetectionRecord | null>(() => {
+    // Match first preset or null
+    return recentDetections.find((d) => d.imageUrl === ALL_PRESETS[0].url) || recentDetections[0] || null;
+  });
   const [hoveredBoxId, setHoveredBoxId] = useState<string | null>(null);
   const [showBoxes, setShowBoxes] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -167,8 +173,28 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
   // Modals for Hackathon presentation
   const [isDossierModalOpen, setIsDossierModalOpen] = useState<boolean>(false);
   const [isTimelineModalOpen, setIsTimelineModalOpen] = useState<boolean>(false);
+  const [isResultsModalOpen, setIsResultsModalOpen] = useState<boolean>(false);
 
   const lastProcessedScanIdRef = useRef<number | null>(null);
+
+  // Load record when selected from Dashboard or Records Manager
+  useEffect(() => {
+    if (inspectedRecord) {
+      setSelectedImage(inspectedRecord.imageUrl);
+      setLocationName(inspectedRecord.location?.name || 'Survey Point');
+      setCoordinates({
+        lat: inspectedRecord.location?.latitude || ALL_PRESETS[0].lat,
+        lng: inspectedRecord.location?.longitude || ALL_PRESETS[0].lng,
+      });
+      setAnalysisResult(inspectedRecord);
+      if (inspectedRecord.imagingMode === 'Sonar') {
+        setActiveImagingMode('sonar');
+      } else {
+        setActiveImagingMode('optical');
+      }
+      setIsResultsModalOpen(true);
+    }
+  }, [inspectedRecord]);
 
   // Sync incoming GIS target scan location from Ocean GIS Map & auto-run scan
   useEffect(() => {
@@ -266,6 +292,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
         }
 
         setLocationName(`Survey Field Scan #${Math.floor(100 + Math.random() * 900)}`);
+        setAnalysisResult(null);
         setCoordinates({
           lat: +(18 + (Math.random() * 10 - 5)).toFixed(4),
           lng: +(76 + (Math.random() * 15 - 7)).toFixed(4),
@@ -313,6 +340,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
       if (data.success && data.detection) {
         setAnalysisResult(data.detection);
         onDetectionAdded(data.detection);
+        setIsResultsModalOpen(true);
 
         soundEngine.stopScanningSound();
         if (data.detection.objectCount > 0) {
@@ -598,6 +626,10 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
                   setCoordinates({ lat: preset.lat, lng: preset.lng });
                   setErrorMessage(null);
                   soundEngine.playUiClick();
+                  const existing = recentDetections.find(
+                    (d) => d.imageUrl === preset.url || d.location?.name === preset.locationName
+                  );
+                  setAnalysisResult(existing || null);
                 }}
                 className={`p-3 rounded-xl text-left border transition-all ${
                   isSelected
@@ -817,160 +849,199 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
 
         {/* Right Column: Severity, Cleanup Plan, & Degradation Timeline (5 cols) */}
         <div className="lg:col-span-5 space-y-5">
-          
-          {/* Pollution Severity Score Card */}
-          <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
-                Pollution Severity Analysis
-              </span>
-              <span
-                className={`text-xs px-2.5 py-1 rounded-md border font-semibold ${getSeverityStyle(
-                  analysisResult?.pollutionSeverity.level || 'Low'
-                )}`}
-              >
-                {analysisResult?.pollutionSeverity.level || 'Low'} Severity
-              </span>
-            </div>
-
-            {/* Score display */}
-            <div className="flex items-baseline gap-3 mb-3">
-              <span className="text-4xl font-extrabold font-mono text-white tabular-nums">
-                {analysisResult?.pollutionSeverity.score ?? 10}
-              </span>
-              <span className="text-sm text-slate-400 font-mono">/ 100 Pollution Index</span>
-            </div>
-
-            {/* Progress bar */}
-            <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden mb-4 border border-slate-800">
-              <div
-                className={`h-full transition-all duration-700 ${
-                  (analysisResult?.pollutionSeverity.score ?? 0) >= 75
-                    ? 'bg-rose-500'
-                    : (analysisResult?.pollutionSeverity.score ?? 0) >= 50
-                    ? 'bg-amber-400'
-                    : 'bg-cyan-400'
-                }`}
-                style={{ width: `${analysisResult?.pollutionSeverity.score ?? 10}%` }}
-              />
-            </div>
-
-            <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/50 p-3.5 rounded-xl border border-slate-800">
-              {analysisResult?.pollutionSeverity.reasoning ||
-                'Baseline clean oceanic sample. Zero synthetic targets detected across seabed scan.'}
-            </p>
-          </div>
-
-          {/* Interactive Polymer Degradation Timeline (Directly addressing user voice note) */}
-          <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
-                <Clock className="w-4 h-4 text-cyan-400" />
-                <span>Environmental Lifespan & Degradation</span>
+          {!analysisResult ? (
+            <div className="ocean-glass-card rounded-2xl p-7 border border-cyan-500/30 text-center space-y-4">
+              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center mx-auto">
+                <Sparkles className="w-6 h-6 animate-pulse" />
               </div>
-              <span className="text-xs font-mono text-cyan-300 font-bold">
-                {analysisResult?.marineEcosystemImpact.degradationTimeEstimate || '450+ Years'}
-              </span>
-            </div>
-
-            <p className="text-xs text-slate-400">
-              Degradation trajectory for synthetic polymers and fishing nets in marine seawater:
-            </p>
-
-            <div className="space-y-2.5 text-xs">
-              <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <div className="flex items-center justify-between font-semibold text-rose-300 text-[11px]">
-                  <span>Stage 1 (0 - 5 Years): Macro-Entanglement</span>
-                  <span>Active Lethal Phase</span>
-                </div>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Intact ghost gillnets and rigid plastics continuously trap pelagic fish, dolphins, and turtles.
-                </p>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <div className="flex items-center justify-between font-semibold text-amber-300 text-[11px]">
-                  <span>Stage 2 (5 - 50 Years): Photo-Oxidation</span>
-                  <span>Embrittlement</span>
-                </div>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Solar UV radiation and wave turbulence shatter polymers into jagged brittle fragments.
-                </p>
-              </div>
-
-              <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                <div className="flex items-center justify-between font-semibold text-cyan-300 text-[11px]">
-                  <span>Stage 3 (50 - 200+ Years): Microplastics</span>
-                  <span>Trophic Toxicity</span>
-                </div>
-                <p className="text-[11px] text-slate-400 mt-1">
-                  Fragmentation into particles &lt;5mm ingested by zooplankton, entering commercial fish stock.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Cleanup Priority & Logistics Recommendation */}
-          <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
-                <ShieldAlert className="w-4 h-4 text-cyan-400" />
-                <span>Maritime Intervention Protocol</span>
-              </div>
-              <span className="text-xs font-mono text-cyan-300">
-                {analysisResult?.cleanupPriority.priority || 'Routine'}
-              </span>
-            </div>
-
-            <div className="text-xs space-y-3">
-              <div className="flex items-start justify-between py-2 border-b border-slate-800/80">
-                <span className="text-slate-400">Response Window:</span>
-                <span className="text-white font-medium">
-                  {analysisResult?.cleanupPriority.timeframe || 'Standard patrol'}
-                </span>
-              </div>
-
               <div>
-                <span className="text-slate-400 block mb-1.5">Recommended Equipment:</span>
-                <div className="flex flex-wrap gap-1.5">
-                  {analysisResult?.cleanupPriority.equipmentRecommended?.map((eq, i) => (
-                    <span
-                      key={i}
-                      className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]"
-                    >
-                      {eq}
-                    </span>
-                  )) || (
-                    <span className="text-slate-500">Autonomous surface interceptor</span>
-                  )}
+                <h3 className="text-base font-bold text-white">Image Loaded & Ready for AI Scan</h3>
+                <p className="text-xs text-slate-400 mt-1.5 max-w-sm mx-auto leading-relaxed">
+                  Click below to execute YOLOv8 and Gemini vision analysis. DeepScan AI will detect marine debris, calculate pollution index, and compute recovery protocols.
+                </p>
+              </div>
+              <button
+                onClick={runDetection}
+                disabled={isAnalyzing}
+                className="px-6 py-2.5 bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-slate-950 font-bold text-xs rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all flex items-center gap-2 mx-auto disabled:opacity-50"
+              >
+                {isAnalyzing ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <span>Analyzing Image...</span>
+                  </>
+                ) : (
+                  <>
+                    <Sparkles className="w-4 h-4" />
+                    <span>Execute DeepScan AI on this Image</span>
+                  </>
+                )}
+              </button>
+            </div>
+          ) : (
+            <>
+              {/* Pollution Severity Score Card */}
+              <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                    Pollution Severity Analysis
+                  </span>
+                  <span
+                    className={`text-xs px-2.5 py-1 rounded-md border font-semibold ${getSeverityStyle(
+                      analysisResult?.pollutionSeverity?.level || 'Low'
+                    )}`}
+                  >
+                    {analysisResult?.pollutionSeverity?.level || 'Low'} Severity
+                  </span>
+                </div>
+
+                {/* Score display */}
+                <div className="flex items-baseline gap-3 mb-3">
+                  <span className="text-4xl font-extrabold font-mono text-white tabular-nums">
+                    {analysisResult?.pollutionSeverity?.score ?? 10}
+                  </span>
+                  <span className="text-sm text-slate-400 font-mono">/ 100 Pollution Index</span>
+                </div>
+
+                {/* Progress bar */}
+                <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden mb-4 border border-slate-800">
+                  <div
+                    className={`h-full transition-all duration-700 ${
+                      (analysisResult?.pollutionSeverity?.score ?? 0) >= 75
+                        ? 'bg-rose-500'
+                        : (analysisResult?.pollutionSeverity?.score ?? 0) >= 50
+                        ? 'bg-amber-400'
+                        : 'bg-cyan-400'
+                    }`}
+                    style={{ width: `${analysisResult?.pollutionSeverity?.score ?? 10}%` }}
+                  />
+                </div>
+
+                <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/50 p-3.5 rounded-xl border border-slate-800">
+                  {analysisResult?.pollutionSeverity?.reasoning ||
+                    'Baseline clean oceanic sample. Zero synthetic targets detected across seabed scan.'}
+                </p>
+              </div>
+
+              {/* Interactive Polymer Degradation Timeline */}
+              <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
+                    <Clock className="w-4 h-4 text-cyan-400" />
+                    <span>Environmental Lifespan & Degradation</span>
+                  </div>
+                  <span className="text-xs font-mono text-cyan-300 font-bold">
+                    {analysisResult?.marineEcosystemImpact?.degradationTimeEstimate || '450+ Years'}
+                  </span>
+                </div>
+
+                <p className="text-xs text-slate-400">
+                  Degradation trajectory for synthetic polymers and fishing nets in marine seawater:
+                </p>
+
+                <div className="space-y-2.5 text-xs">
+                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                    <div className="flex items-center justify-between font-semibold text-rose-300 text-[11px]">
+                      <span>Stage 1 (0 - 5 Years): Macro-Entanglement</span>
+                      <span>Active Lethal Phase</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 mt-1">
+                      Intact ghost gillnets and rigid plastics continuously trap pelagic fish, dolphins, and turtles.
+                    </p>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                    <div className="flex items-center justify-between font-semibold text-amber-300 text-[11px]">
+                      <span>Stage 2 (5 - 50 Years): Photo-Oxidation</span>
+                      <span>Embrittlement</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 mt-1">
+                      Solar UV radiation and wave turbulence shatter polymers into jagged brittle fragments.
+                    </p>
+                  </div>
+
+                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                    <div className="flex items-center justify-between font-semibold text-cyan-300 text-[11px]">
+                      <span>Stage 3 (50 - 200+ Years): Microplastics</span>
+                      <span>Trophic Toxicity</span>
+                    </div>
+                    <p className="text-[11px] text-slate-400 mt-1">
+                      Fragmentation into particles &lt;5mm ingested by zooplankton, entering commercial fish stock.
+                    </p>
+                  </div>
                 </div>
               </div>
 
-              <div className="pt-2">
-                <span className="text-slate-400 block mb-1">Operational Action Plan:</span>
-                <p className="text-slate-300 text-[11px] leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-                  {analysisResult?.cleanupPriority.actionPlan ||
-                    'Maintain periodic automated acoustic sweeps to monitor seasonal debris accumulation.'}
-                </p>
+              {/* Cleanup Priority & Logistics Recommendation */}
+              <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
+                    <ShieldAlert className="w-4 h-4 text-cyan-400" />
+                    <span>Maritime Intervention Protocol</span>
+                  </div>
+                  <span className="text-xs font-mono text-cyan-300">
+                    {analysisResult?.cleanupPriority?.priority || 'Routine'}
+                  </span>
+                </div>
+
+                <div className="text-xs space-y-3">
+                  <div className="flex items-start justify-between py-2 border-b border-slate-800/80">
+                    <span className="text-slate-400">Response Window:</span>
+                    <span className="text-white font-medium">
+                      {analysisResult?.cleanupPriority?.timeframe || 'Standard patrol'}
+                    </span>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400 block mb-1.5">Recommended Equipment:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {Array.isArray(analysisResult?.cleanupPriority?.equipmentRecommended) ? (
+                        analysisResult.cleanupPriority.equipmentRecommended.map((eq, i) => (
+                          <span
+                            key={i}
+                            className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]"
+                          >
+                            {eq}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]">
+                          {analysisResult?.cleanupPriority?.equipmentRecommended || 'Autonomous surface interceptor'}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="pt-2">
+                    <span className="text-slate-400 block mb-1">Operational Action Plan:</span>
+                    <p className="text-slate-300 text-[11px] leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+                      {analysisResult?.cleanupPriority?.actionPlan ||
+                        'Maintain periodic automated acoustic sweeps to monitor seasonal debris accumulation.'}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Buttons */}
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
+                  <button
+                    onClick={() => setIsDossierModalOpen(true)}
+                    className="text-xs px-3.5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-400 text-slate-950 font-bold hover:from-cyan-400 hover:to-teal-300 flex items-center gap-1.5 transition-all shadow-md"
+                  >
+                    <FileText className="w-3.5 h-3.5" />
+                    <span>Open Dispatch Dossier</span>
+                  </button>
+
+                  <button
+                    onClick={() => setIsResultsModalOpen(true)}
+                    className="text-xs px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 flex items-center gap-1 transition-all"
+                    title="View full results breakdown"
+                  >
+                    <span>View Report</span>
+                  </button>
+                </div>
               </div>
-            </div>
-
-            {/* Official Maritime Incident Dossier Button */}
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-              <button
-                onClick={() => setIsDossierModalOpen(true)}
-                className="text-xs px-3.5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-400 text-slate-950 font-bold hover:from-cyan-400 hover:to-teal-300 flex items-center gap-1.5 transition-all shadow-md"
-              >
-                <FileText className="w-3.5 h-3.5" />
-                <span>Open Incident Dispatch Dossier</span>
-              </button>
-
-              <span className="text-[11px] text-slate-500 font-mono">
-                {analysisResult?.id || 'ID Pending'}
-              </span>
-            </div>
-          </div>
-
+            </>
+          )}
         </div>
 
       </div>
@@ -1100,6 +1171,155 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
               </button>
             </div>
 
+          </div>
+        </div>
+      )}
+
+      {/* Instant Vision Detection Results Modal (Opens automatically upon scan execution) */}
+      {isResultsModalOpen && analysisResult && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
+          <div className="bg-slate-900 border border-cyan-500/50 rounded-2xl max-w-2xl w-full p-6 sm:p-7 space-y-5 shadow-2xl text-slate-100 animate-in fade-in zoom-in-95 duration-200">
+            {/* Header */}
+            <div className="flex items-start justify-between pb-3 border-b border-slate-800">
+              <div className="flex items-center gap-3">
+                <div className="p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400">
+                  <CheckCircle2 className="w-5 h-5" />
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-lg font-bold text-white">AI Vision Analysis Complete</h2>
+                    <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-mono font-semibold">
+                      {activeImagingMode === 'sonar' ? 'Acoustic Sonar' : 'Optical RGB'}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    {locationName} · {coordinates.lat.toFixed(4)}°N, {coordinates.lng.toFixed(4)}°E
+                  </p>
+                </div>
+              </div>
+              <button
+                onClick={() => setIsResultsModalOpen(false)}
+                className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Quick Metrics Strip */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-medium block">Debris Found</span>
+                <span className="text-xl font-bold font-mono text-cyan-300">
+                  {analysisResult.detectedObjects?.length || 0} {(analysisResult.detectedObjects?.length || 0) === 1 ? 'item' : 'items'}
+                </span>
+              </div>
+              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-medium block">Pollution Score</span>
+                <span className={`text-xl font-bold font-mono ${
+                  analysisResult.pollutionSeverity?.level === 'Severe'
+                    ? 'text-rose-400'
+                    : analysisResult.pollutionSeverity?.level === 'High'
+                    ? 'text-amber-400'
+                    : 'text-emerald-400'
+                }`}>
+                  {analysisResult.pollutionSeverity?.score ?? 0}/100
+                </span>
+              </div>
+              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-medium block">Total Dry Mass</span>
+                <span className="text-xl font-bold font-mono text-white">
+                  {(analysisResult.detectedObjects || []).reduce((acc, o) => acc + (o.estimatedWeightKg || 0), 0).toFixed(1)} kg
+                </span>
+              </div>
+              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
+                <span className="text-[10px] text-slate-400 uppercase font-medium block">Action Urgency</span>
+                <span className="text-sm font-bold text-cyan-400 truncate block mt-0.5">
+                  {analysisResult.cleanupPriority?.priority || 'Routine'}
+                </span>
+              </div>
+            </div>
+
+            {/* Forensic Object Breakdown */}
+            <div className="space-y-2">
+              <span className="text-xs font-semibold text-slate-300 uppercase tracking-wide">
+                Identified Marine Debris Items
+              </span>
+              {analysisResult.detectedObjects && analysisResult.detectedObjects.length > 0 ? (
+                <div className="max-h-48 overflow-y-auto space-y-2 pr-1">
+                  {analysisResult.detectedObjects.map((item, idx) => (
+                    <div
+                      key={item.id || idx}
+                      className="p-3 bg-slate-950/50 rounded-xl border border-slate-800 flex items-center justify-between text-xs"
+                    >
+                      <div>
+                        <div className="font-semibold text-white">{item.label}</div>
+                        <div className="text-[11px] text-slate-400 mt-0.5">
+                          {item.material} · Est. {item.estimatedWeightKg} kg
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-mono font-medium">
+                          {(item.confidence * 100).toFixed(0)}% confidence
+                        </span>
+                        <div className="text-[10px] text-slate-500 uppercase mt-0.5">{item.category}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="p-4 bg-slate-950/40 rounded-xl border border-slate-800 text-center text-xs text-slate-400">
+                  Clean baseline seabed — zero synthetic debris or fishing gear detected.
+                </div>
+              )}
+            </div>
+
+            {/* Ecological Impact & Plan */}
+            <div className="p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-400">Degradation Lifespan:</span>
+                <span className="font-mono text-cyan-300 font-bold">
+                  {analysisResult.marineEcosystemImpact?.degradationTimeEstimate || 'N/A'}
+                </span>
+              </div>
+              <div className="text-slate-300 leading-relaxed text-[11px] bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
+                <strong className="text-white block mb-0.5">Intervention Action Plan:</strong>
+                {analysisResult.cleanupPriority?.actionPlan || 'Nominal baseline monitoring.'}
+              </div>
+            </div>
+
+            {/* Modal Bottom Actions */}
+            <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setIsResultsModalOpen(false);
+                    setIsDossierModalOpen(true);
+                  }}
+                  className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5"
+                >
+                  <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Full Dispatch Dossier</span>
+                </button>
+                {onNavigateToArchive && (
+                  <button
+                    onClick={() => {
+                      setIsResultsModalOpen(false);
+                      onNavigateToArchive();
+                    }}
+                    className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5"
+                  >
+                    <span>View in Records & Analytics</span>
+                  </button>
+                )}
+              </div>
+
+              <button
+                onClick={() => setIsResultsModalOpen(false)}
+                className="px-5 py-2 bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-slate-950 font-bold rounded-xl text-xs transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+              >
+                Inspect on Interactive Canvas
+              </button>
+            </div>
           </div>
         </div>
       )}

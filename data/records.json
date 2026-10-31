@@ -1,5 +1,424 @@
 [
   {
+    "id": "obs-mvwu0l11",
+    "timestamp": "2026-10-31T20:06:35.893Z",
+    "imageUrl": "/sonar/sonar_ghost_net.jpg",
+    "source": "Upload",
+    "location": {
+      "name": "Baltic Sea",
+      "latitude": 57.3482,
+      "longitude": 19.4129
+    },
+    "detectedObjects": [
+      {
+        "label": "Abandoned Fishing Net",
+        "category": "Fishing Gear",
+        "confidence": 0.99,
+        "box_2d": [
+          270,
+          325,
+          735,
+          665
+        ],
+        "material": "Nylon/Polyethylene",
+        "estimatedWeightKg": 25,
+        "id": "det-1793477195893-1"
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 8,
+      "reasoning": "A large mass of tangled ghost fishing gear (nets and lines) is actively smothering the seafloor habitat and posing a significant entanglement hazard to marine life."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Immediate",
+      "equipmentRecommended": [
+        "ROV with cutting tools",
+        "Divers",
+        "Hydraulic winch"
+      ],
+      "actionPlan": "Deploy diver-assisted recovery team to safely extract the net from the seabed to prevent further habitat degradation and continued bycatch risk."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Critical",
+      "ingestionHazard": "Moderate (microplastic fragmentation)",
+      "degradationTimeEstimate": "450-600 years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 14.6,
+      "waterTempC": 21.4,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-mvwu01m3",
+    "timestamp": "2026-10-31T20:06:10.731Z",
+    "imageUrl": "/sonar/sonar_ghost_net.jpg",
+    "source": "Upload",
+    "location": {
+      "name": "Baltic Sea",
+      "latitude": 57.3482,
+      "longitude": 19.4129
+    },
+    "detectedObjects": [
+      {
+        "label": "Abandoned Fishing Net",
+        "category": "Fishing Gear",
+        "confidence": 0.99,
+        "box_2d": [
+          270,
+          329,
+          735,
+          696
+        ],
+        "material": "Nylon/Synthetic Polymer",
+        "estimatedWeightKg": 15,
+        "id": "det-1793477170730-1"
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 8,
+      "reasoning": "A large, dense mass of tangled ghost fishing gear (nets and lines) is clearly visible resting on the sandy seabed, posing a significant entanglement hazard to benthic marine life."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Urgent recovery required",
+      "equipmentRecommended": [
+        "Remotely Operated Vehicle (ROV)",
+        "Divers",
+        "Grapple boat"
+      ],
+      "actionPlan": "Perform site survey to map exact extents, deploy ROV or specialized diver team to cut and retrieve the entangling mass to prevent further environmental damage."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Critical",
+      "ingestionHazard": "High for small marine fauna via microplastic degradation",
+      "degradationTimeEstimate": "450-600 years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 14.6,
+      "waterTempC": 21.4,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-mvwtuab0",
+    "timestamp": "2026-10-31T20:01:42.060Z",
+    "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=1200&q=80",
+    "source": "Upload",
+    "location": {
+      "name": "North Pacific Subtropical Gyre",
+      "latitude": 34.2541,
+      "longitude": -140.7812
+    },
+    "detectedObjects": [
+      {
+        "label": "Plastic Film/Bag",
+        "category": "Plastic",
+        "confidence": 0.98,
+        "box_2d": [
+          108,
+          608,
+          276,
+          781
+        ],
+        "material": "Polyethylene",
+        "estimatedWeightKg": 0.01,
+        "id": "det-1793476902060-1"
+      },
+      {
+        "label": "Tangled Plastic Debris",
+        "category": "Plastic",
+        "confidence": 0.96,
+        "box_2d": [
+          0,
+          0,
+          903,
+          479
+        ],
+        "material": "Polypropylene/Polyethylene mix",
+        "estimatedWeightKg": 0.25,
+        "id": "det-1793476902060-2"
+      },
+      {
+        "label": "Discarded Plastic Strip",
+        "category": "Plastic",
+        "confidence": 0.94,
+        "box_2d": [
+          538,
+          245,
+          876,
+          802
+        ],
+        "material": "Polypropylene",
+        "estimatedWeightKg": 0.05,
+        "id": "det-1793476902060-3"
+      }
+    ],
+    "objectCount": 3,
+    "pollutionSeverity": {
+      "level": "Moderate",
+      "score": 6,
+      "reasoning": "Significant amount of floating plastic debris and tangled film observed in close proximity to a school of reef fish, posing an entanglement risk."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Within 24-48 hours",
+      "equipmentRecommended": [
+        "Handheld aquatic net",
+        "Support vessel",
+        "Divers for debris removal"
+      ],
+      "actionPlan": "Deploy dive team or collection vessel to retrieve the entangled plastic mass to prevent further degradation into microplastics and accidental ingestion by local fish population."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "High",
+      "ingestionHazard": "High for local reef fish due to fragmenting plastics",
+      "degradationTimeEstimate": "450+ years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 13.7,
+      "waterTempC": 21.6,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-mvwttax3",
+    "timestamp": "2026-10-31T20:00:56.199Z",
+    "imageUrl": "data:image/jpeg;base64,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",
+    "source": "Upload",
+    "location": {
+      "name": "Survey Field Scan #191",
+      "latitude": 19.5209,
+      "longitude": 70.0558
+    },
+    "detectedObjects": [
+      {
+        "label": "Blue Plastic Container",
+        "category": "Plastic",
+        "confidence": 0.98,
+        "box_2d": [
+          617,
+          268,
+          735,
+          375
+        ],
+        "material": "HDPE Plastic",
+        "estimatedWeightKg": 0.5,
+        "id": "det-1793476856199-1"
+      },
+      {
+        "label": "Green Plastic Crate",
+        "category": "Plastic",
+        "confidence": 0.95,
+        "box_2d": [
+          486,
+          296,
+          584,
+          382
+        ],
+        "material": "Polypropylene",
+        "estimatedWeightKg": 1.2,
+        "id": "det-1793476856199-2"
+      },
+      {
+        "label": "Discarded Fishing Net",
+        "category": "Fishing Gear",
+        "confidence": 0.92,
+        "box_2d": [
+          706,
+          507,
+          893,
+          714
+        ],
+        "material": "Nylon",
+        "estimatedWeightKg": 2.5,
+        "id": "det-1793476856199-3"
+      },
+      {
+        "label": "Rubber Tire",
+        "category": "Rubber",
+        "confidence": 0.96,
+        "box_2d": [
+          858,
+          489,
+          997,
+          718
+        ],
+        "material": "Vulcanized Rubber",
+        "estimatedWeightKg": 8,
+        "id": "det-1793476856199-4"
+      },
+      {
+        "label": "Fragmented Plastic Bottle",
+        "category": "Plastic",
+        "confidence": 0.88,
+        "box_2d": [
+          446,
+          486,
+          522,
+          600
+        ],
+        "material": "PET Plastic",
+        "estimatedWeightKg": 0.05,
+        "id": "det-1793476856199-5"
+      }
+    ],
+    "objectCount": 5,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 8,
+      "reasoning": "The beach is heavily impacted by a high accumulation of mixed marine debris including industrial plastics, discarded fishing gear, and vehicular waste, which poses a significant threat to local marine life."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Immediate",
+      "equipmentRecommended": [
+        "Manual collection tools",
+        "Industrial waste bags",
+        "Front-end loader for bulk removal"
+      ],
+      "actionPlan": "Perform immediate shoreline cleanup to remove microplastics and larger debris fragments. Implement community waste management education to prevent further dumping."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "High",
+      "ingestionHazard": "High risk of microplastic ingestion by marine organisms",
+      "degradationTimeEstimate": "450+ years for plastics"
+    },
+    "sensorContext": {
+      "turbidityNtu": 14.2,
+      "waterTempC": 21.5,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-mvwtsr4t",
+    "timestamp": "2026-10-31T20:00:30.557Z",
+    "imageUrl": "data:image/jpeg;base64,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",
+    "source": "Upload",
+    "location": {
+      "name": "Survey Field Scan #667",
+      "latitude": 20.4612,
+      "longitude": 81.4622
+    },
+    "detectedObjects": [
+      {
+        "label": "Blue Plastic Container",
+        "category": "Plastic",
+        "confidence": 0.98,
+        "box_2d": [
+          614,
+          267,
+          725,
+          375
+        ],
+        "material": "Polyethylene",
+        "estimatedWeightKg": 0.8,
+        "id": "det-1793476830557-1"
+      },
+      {
+        "label": "Fishing Net Fragment",
+        "category": "Fishing Gear",
+        "confidence": 0.95,
+        "box_2d": [
+          702,
+          508,
+          893,
+          711
+        ],
+        "material": "Nylon",
+        "estimatedWeightKg": 1.2,
+        "id": "det-1793476830557-2"
+      },
+      {
+        "label": "Rubber Tire",
+        "category": "Rubber",
+        "confidence": 0.96,
+        "box_2d": [
+          844,
+          483,
+          997,
+          725
+        ],
+        "material": "Vulcanized Rubber",
+        "estimatedWeightKg": 8.5,
+        "id": "det-1793476830557-3"
+      },
+      {
+        "label": "Plastic Bottle",
+        "category": "Plastic",
+        "confidence": 0.92,
+        "box_2d": [
+          364,
+          194,
+          456,
+          261
+        ],
+        "material": "PET",
+        "estimatedWeightKg": 0.05,
+        "id": "det-1793476830557-4"
+      },
+      {
+        "label": "Green Plastic Crate",
+        "category": "Plastic",
+        "confidence": 0.94,
+        "box_2d": [
+          486,
+          292,
+          583,
+          381
+        ],
+        "material": "High-density Polyethylene",
+        "estimatedWeightKg": 2.5,
+        "id": "det-1793476830557-5"
+      },
+      {
+        "label": "Plastic Film/Debris",
+        "category": "Plastic",
+        "confidence": 0.88,
+        "box_2d": [
+          447,
+          492,
+          517,
+          597
+        ],
+        "material": "Polypropylene",
+        "estimatedWeightKg": 0.3,
+        "id": "det-1793476830557-6"
+      }
+    ],
+    "objectCount": 6,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 8,
+      "reasoning": "The shoreline is heavily impacted by a high accumulation of mixed anthropogenic waste, including persistent plastics, tires, and discarded fishing gear, presenting a major ecological hazard to local coastal fauna."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Immediate (within 48 hours)",
+      "equipmentRecommended": [
+        "Manual sorting crew",
+        "Heavy machinery for tire removal",
+        "Mesh debris bags"
+      ],
+      "actionPlan": "Coordinate a manual beach cleanup event to remove large hazardous items and microplastic-prone fragments, followed by a mechanical sweep for heavy rubber/metal components."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "High",
+      "ingestionHazard": "High risk for local marine and avian species due to fragmented microplastics and tethered netting.",
+      "degradationTimeEstimate": "450+ years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 14.6,
+      "waterTempC": 21.5,
+      "waterClarity": "Clear"
+    }
+  },
+  {
     "id": "obs-2026-1101-01",
     "timestamp": "2026-11-01T10:15:00.000Z",
     "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=800&q=80",
@@ -16,7 +435,12 @@
         "label": "Abandoned Gillnet (Ghost Gear)",
         "category": "Fishing Gear",
         "confidence": 0.96,
-        "box_2d": [120, 150, 680, 820],
+        "box_2d": [
+          120,
+          150,
+          680,
+          820
+        ],
         "material": "High-Density Polyethylene & Nylon Monofilament",
         "estimatedWeightKg": 18.5
       },
@@ -25,7 +449,12 @@
         "label": "Floating Polyethylene Bottle",
         "category": "Plastic",
         "confidence": 0.94,
-        "box_2d": [620, 240, 780, 390],
+        "box_2d": [
+          620,
+          240,
+          780,
+          390
+        ],
         "material": "PET Plastic",
         "estimatedWeightKg": 0.08
       },
@@ -34,7 +463,12 @@
         "label": "Degraded Plastic Crate Fragment",
         "category": "Plastic",
         "confidence": 0.88,
-        "box_2d": [480, 700, 650, 890],
+        "box_2d": [
+          480,
+          700,
+          650,
+          890
+        ],
         "material": "Rigid HDPE",
         "estimatedWeightKg": 1.2
       }
@@ -83,7 +517,12 @@
         "label": "Single-use Beverage Containers (Cluster)",
         "category": "Plastic",
         "confidence": 0.93,
-        "box_2d": [250, 220, 560, 590],
+        "box_2d": [
+          250,
+          220,
+          560,
+          590
+        ],
         "material": "PET & Polypropylene Caps",
         "estimatedWeightKg": 0.65
       },
@@ -92,7 +531,12 @@
         "label": "Corroded Aluminum Beverage Can",
         "category": "Metal",
         "confidence": 0.89,
-        "box_2d": [600, 520, 720, 680],
+        "box_2d": [
+          600,
+          520,
+          720,
+          680
+        ],
         "material": "Aluminum Alloy",
         "estimatedWeightKg": 0.15
       }
@@ -133,7 +577,10 @@
       "frequencyKhz": 455,
       "seabedDepthM": 28.5,
       "sonarType": "Side-Scan Sonar (SSS)",
-      "preprocessingPipeline": ["Slant-range correction", "Benthic acoustic shadow isolation"]
+      "preprocessingPipeline": [
+        "Slant-range correction",
+        "Benthic acoustic shadow isolation"
+      ]
     },
     "location": {
       "name": "Baltic Sea Outer Bank (Gotland Trench Approach)",
@@ -146,9 +593,14 @@
         "label": "Benthic Ghost Net Structure",
         "category": "Fishing Gear",
         "confidence": 0.94,
-        "box_2d": [210, 180, 780, 840],
+        "box_2d": [
+          210,
+          180,
+          780,
+          840
+        ],
         "material": "Nylon Monofilament & Leadline weights",
-        "estimatedWeightKg": 24.0,
+        "estimatedWeightKg": 24,
         "acousticShadowScore": 0.88
       }
     ],
@@ -195,7 +647,12 @@
         "label": "Submerged Vehicle Tire",
         "category": "Rubber",
         "confidence": 0.95,
-        "box_2d": [350, 280, 820, 740],
+        "box_2d": [
+          350,
+          280,
+          820,
+          740
+        ],
         "material": "Vulcanized Synthetic Rubber",
         "estimatedWeightKg": 11.2
       }
@@ -243,7 +700,12 @@
         "label": "Plastic Film Bag & Packaging Wrappers",
         "category": "Plastic",
         "confidence": 0.92,
-        "box_2d": [310, 420, 580, 710],
+        "box_2d": [
+          310,
+          420,
+          580,
+          710
+        ],
         "material": "Low-Density Polyethylene (LDPE)",
         "estimatedWeightKg": 0.12
       }
@@ -291,7 +753,12 @@
         "label": "Dense Plastic & Rope Entanglement Cluster",
         "category": "Plastic",
         "confidence": 0.91,
-        "box_2d": [180, 200, 750, 790],
+        "box_2d": [
+          180,
+          200,
+          750,
+          790
+        ],
         "material": "Polypropylene & High-Density Polymers",
         "estimatedWeightKg": 8.4
       }
@@ -305,7 +772,10 @@
     "cleanupPriority": {
       "priority": "Priority",
       "timeframe": "Within 5 days",
-      "equipmentRecommended": ["Benthic dredge skimmer", "Harbor cleanup vessel"],
+      "equipmentRecommended": [
+        "Benthic dredge skimmer",
+        "Harbor cleanup vessel"
+      ],
       "actionPlan": "Schedule harbor authority recovery craft with mechanical grabber."
     },
     "marineEcosystemImpact": {
@@ -336,7 +806,12 @@
         "label": "Derelict Steel Drum Container",
         "category": "Metal",
         "confidence": 0.96,
-        "box_2d": [280, 310, 690, 720],
+        "box_2d": [
+          280,
+          310,
+          690,
+          720
+        ],
         "material": "Galvanized Carbon Steel",
         "estimatedWeightKg": 22.5
       }
@@ -350,7 +825,10 @@
     "cleanupPriority": {
       "priority": "Critical Response",
       "timeframe": "Within 72 hours",
-      "equipmentRecommended": ["Heavy-duty ROV", "Salvage winch with environmental barrier"],
+      "equipmentRecommended": [
+        "Heavy-duty ROV",
+        "Salvage winch with environmental barrier"
+      ],
       "actionPlan": "Dispatch certified environmental salvage team with hazmat containment protocols."
     },
     "marineEcosystemImpact": {
@@ -381,7 +859,12 @@
         "label": "Styrofoam Fish Boxes & EPS Insulation Fragments",
         "category": "Plastic",
         "confidence": 0.95,
-        "box_2d": [210, 190, 680, 810],
+        "box_2d": [
+          210,
+          190,
+          680,
+          810
+        ],
         "material": "Expanded Polystyrene (EPS)",
         "estimatedWeightKg": 1.8
       }
@@ -395,7 +878,10 @@
     "cleanupPriority": {
       "priority": "Priority",
       "timeframe": "Within 4 days",
-      "equipmentRecommended": ["Fine-mesh coastal boom", "Surface skimmer vessel"],
+      "equipmentRecommended": [
+        "Fine-mesh coastal boom",
+        "Surface skimmer vessel"
+      ],
       "actionPlan": "Deploy surface collection booms before seasonal autumn gale breaks up the friable foam blocks."
     },
     "marineEcosystemImpact": {
@@ -426,7 +912,12 @@
         "label": "Polypropylene Packaging Strapping Bands (Coil)",
         "category": "Plastic",
         "confidence": 0.92,
-        "box_2d": [320, 260, 690, 730],
+        "box_2d": [
+          320,
+          260,
+          690,
+          730
+        ],
         "material": "Polypropylene (PP)",
         "estimatedWeightKg": 0.95
       }
@@ -440,7 +931,9 @@
     "cleanupPriority": {
       "priority": "Priority",
       "timeframe": "Within 6 days",
-      "equipmentRecommended": ["Autonomous patrol drone with grabber arm"],
+      "equipmentRecommended": [
+        "Autonomous patrol drone with grabber arm"
+      ],
       "actionPlan": "Dispatch autonomous surface vehicle on patrol route to snag and collect strapping loops."
     },
     "marineEcosystemImpact": {
@@ -471,7 +964,12 @@
         "label": "Beverage Bottle Array with Algal Biofouling",
         "category": "Plastic",
         "confidence": 0.94,
-        "box_2d": [190, 230, 610, 640],
+        "box_2d": [
+          190,
+          230,
+          610,
+          640
+        ],
         "material": "PET Plastic",
         "estimatedWeightKg": 0.45
       }
@@ -485,7 +983,9 @@
     "cleanupPriority": {
       "priority": "Routine",
       "timeframe": "Weekly community beach sweep",
-      "equipmentRecommended": ["Volunteer coastal cleanup crew"],
+      "equipmentRecommended": [
+        "Volunteer coastal cleanup crew"
+      ],
       "actionPlan": "Add GPS marker to Saturday community reef sweep route."
     },
     "marineEcosystemImpact": {
@@ -516,7 +1016,12 @@
         "label": "Dislodged HDPE Chemical Jerrycan",
         "category": "Plastic",
         "confidence": 0.97,
-        "box_2d": [240, 290, 710, 760],
+        "box_2d": [
+          240,
+          290,
+          710,
+          760
+        ],
         "material": "High-Density Polyethylene",
         "estimatedWeightKg": 2.8
       }
@@ -530,7 +1035,9 @@
     "cleanupPriority": {
       "priority": "Critical Response",
       "timeframe": "Within 24 hours",
-      "equipmentRecommended": ["Park Ranger patrol interceptor"],
+      "equipmentRecommended": [
+        "Park Ranger patrol interceptor"
+      ],
       "actionPlan": "Dispatch park ranger patrol boat to retrieve container."
     },
     "marineEcosystemImpact": {
@@ -540,7 +1047,7 @@
     },
     "sensorContext": {
       "turbidityNtu": 5.4,
-      "waterTempC": 21.0,
+      "waterTempC": 21,
       "waterClarity": "Clear"
     }
   }

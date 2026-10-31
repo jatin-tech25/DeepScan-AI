@@ -19,6 +19,7 @@ export default function App() {
   const [detections, setDetections] = useState<DetectionRecord[]>([]);
   const [hardware, setHardware] = useState<HardwareTelemetry | null>(null);
   const [isTogglingHardware, setIsTogglingHardware] = useState<boolean>(false);
+  const [inspectedRecord, setInspectedRecord] = useState<DetectionRecord | null>(null);
   const [targetScanLocation, setTargetScanLocation] = useState<{
     locationName: string;
     lat: number;
@@ -158,6 +159,8 @@ export default function App() {
             onDetectionAdded={handleDetectionAdded}
             recentDetections={detections}
             targetScanLocation={targetScanLocation}
+            inspectedRecord={inspectedRecord}
+            onNavigateToArchive={() => handleTabSwitch('analytics')}
           />
         )}
 
@@ -165,7 +168,10 @@ export default function App() {
           <OceanMap
             detections={detections}
             hardware={hardware}
-            onSelectDetection={() => {}}
+            onSelectDetection={(record) => {
+              setInspectedRecord(record);
+              handleTabSwitch('detection');
+            }}
             onScanLocation={(locationName, lat, lng) => {
               setTargetScanLocation({
                 locationName,
@@ -192,7 +198,10 @@ export default function App() {
             <AnalyticsDashboard
               detections={detections}
               hardware={hardware}
-              onSelectDetection={() => handleTabSwitch('detection')}
+              onSelectDetection={(record) => {
+                setInspectedRecord(record);
+                handleTabSwitch('detection');
+              }}
               onDeleteDetection={handleDeleteDetection}
               onAddRecord={handleDetectionAdded}
               onNavigateToScan={() => handleTabSwitch('detection')}
