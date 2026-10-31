@@ -1,5 +1,5 @@
 import React from 'react';
-import { Waves, Scan, Radio } from 'lucide-react';
+import { Waves, Scan, Radio, Calendar } from 'lucide-react';
 import { AcousticSoundHub } from './AcousticSoundHub';
 
 interface NavbarProps {
@@ -77,13 +77,14 @@ export const Navbar: React.FC<NavbarProps> = ({
           </button>
           <button
             onClick={() => setActiveTab('analytics')}
-            className={`transition-colors whitespace-nowrap shrink-0 ${
+            className={`transition-colors whitespace-nowrap shrink-0 flex items-center gap-1.5 ${
               activeTab === 'analytics'
                 ? 'text-cyan-400 border-b-2 border-cyan-400 pb-0.5'
                 : 'text-slate-300 hover:text-white'
             }`}
           >
-            Analytics
+            <Calendar className="w-3.5 h-3.5" />
+            Records & Analytics
           </button>
         </nav>
 

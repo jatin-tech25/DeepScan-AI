@@ -194,6 +194,7 @@ export default function App() {
               hardware={hardware}
               onSelectDetection={() => handleTabSwitch('detection')}
               onDeleteDetection={handleDeleteDetection}
+              onAddRecord={handleDetectionAdded}
               onNavigateToScan={() => handleTabSwitch('detection')}
             />
 

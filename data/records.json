@@ -1,0 +1,547 @@
+[
+  {
+    "id": "obs-2026-1101-01",
+    "timestamp": "2026-11-01T10:15:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=800&q=80",
+    "source": "Autonomous Buoy",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "North Pacific Subtropical Convergence (Gyre Delta)",
+      "latitude": 34.2541,
+      "longitude": -140.7812
+    },
+    "detectedObjects": [
+      {
+        "id": "det-1",
+        "label": "Abandoned Gillnet (Ghost Gear)",
+        "category": "Fishing Gear",
+        "confidence": 0.96,
+        "box_2d": [120, 150, 680, 820],
+        "material": "High-Density Polyethylene & Nylon Monofilament",
+        "estimatedWeightKg": 18.5
+      },
+      {
+        "id": "det-2",
+        "label": "Floating Polyethylene Bottle",
+        "category": "Plastic",
+        "confidence": 0.94,
+        "box_2d": [620, 240, 780, 390],
+        "material": "PET Plastic",
+        "estimatedWeightKg": 0.08
+      },
+      {
+        "id": "det-3",
+        "label": "Degraded Plastic Crate Fragment",
+        "category": "Plastic",
+        "confidence": 0.88,
+        "box_2d": [480, 700, 650, 890],
+        "material": "Rigid HDPE",
+        "estimatedWeightKg": 1.2
+      }
+    ],
+    "objectCount": 3,
+    "pollutionSeverity": {
+      "level": "Severe",
+      "score": 88,
+      "reasoning": "Active heavy ghost fishing net presenting lethal marine entanglement hazard for cetaceans and pelagic fish combined with rigid plastics undergoing UV degradation."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Immediate (Within 48 hours)",
+      "equipmentRecommended": [
+        "Winch-assisted recovery crane",
+        "Specialized marine cutting shears",
+        "Containment boom"
+      ],
+      "actionPlan": "Deploy ocean vessel with grapple recovery winch to extract the tangled net before it sinks onto seafloor benthic habitats."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Critical",
+      "ingestionHazard": "Moderate for turtles and pelagic seabirds",
+      "degradationTimeEstimate": "600+ years for nylon filaments"
+    },
+    "sensorContext": {
+      "turbidityNtu": 18.4,
+      "waterTempC": 19.8,
+      "waterClarity": "Slightly Turbid"
+    }
+  },
+  {
+    "id": "obs-2026-1101-02",
+    "timestamp": "2026-11-01T04:30:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&w=800&q=80",
+    "source": "Field Camera",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "Bay of Bengal Coastal Sanctuary (Cox Transect)",
+      "latitude": 21.4272,
+      "longitude": 91.9702
+    },
+    "detectedObjects": [
+      {
+        "id": "det-4",
+        "label": "Single-use Beverage Containers (Cluster)",
+        "category": "Plastic",
+        "confidence": 0.93,
+        "box_2d": [250, 220, 560, 590],
+        "material": "PET & Polypropylene Caps",
+        "estimatedWeightKg": 0.65
+      },
+      {
+        "id": "det-5",
+        "label": "Corroded Aluminum Beverage Can",
+        "category": "Metal",
+        "confidence": 0.89,
+        "box_2d": [600, 520, 720, 680],
+        "material": "Aluminum Alloy",
+        "estimatedWeightKg": 0.15
+      }
+    ],
+    "objectCount": 2,
+    "pollutionSeverity": {
+      "level": "Moderate",
+      "score": 54,
+      "reasoning": "Concentrated coastal runoff debris with high risk of tidal transport into coastal mangrove nursery zones."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Within 5 days",
+      "equipmentRecommended": [
+        "Shallow-draft skimmer craft",
+        "Manual coastal retrieval nets"
+      ],
+      "actionPlan": "Coordinate with local coastal cleanup teams to intercept debris during low tide slack water."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Low",
+      "ingestionHazard": "High hazard of microplastic formation in shallow surf zone",
+      "degradationTimeEstimate": "450 years for plastic bottles, 200 years for cans"
+    },
+    "sensorContext": {
+      "turbidityNtu": 24.1,
+      "waterTempC": 28.2,
+      "waterClarity": "High Turbidity"
+    }
+  },
+  {
+    "id": "obs-2026-1031-01",
+    "timestamp": "2026-10-31T15:20:00.000Z",
+    "imageUrl": "/sonar/sonar_ghost_net.jpg",
+    "source": "Side-Scan Sonar Towfish",
+    "imagingMode": "Sonar",
+    "sonarMetadata": {
+      "frequencyKhz": 455,
+      "seabedDepthM": 28.5,
+      "sonarType": "Side-Scan Sonar (SSS)",
+      "preprocessingPipeline": ["Slant-range correction", "Benthic acoustic shadow isolation"]
+    },
+    "location": {
+      "name": "Baltic Sea Outer Bank (Gotland Trench Approach)",
+      "latitude": 57.3482,
+      "longitude": 19.4129
+    },
+    "detectedObjects": [
+      {
+        "id": "det-sonar-1",
+        "label": "Benthic Ghost Net Structure",
+        "category": "Fishing Gear",
+        "confidence": 0.94,
+        "box_2d": [210, 180, 780, 840],
+        "material": "Nylon Monofilament & Leadline weights",
+        "estimatedWeightKg": 24.0,
+        "acousticShadowScore": 0.88
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "Severe",
+      "score": 85,
+      "reasoning": "Submerged snagged bottom trawl net creating perpetual benthic kill mechanism for cod and flatfish stocks."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Within 72 hours",
+      "equipmentRecommended": [
+        "ROV with hydraulic cutter",
+        "Survey vessel with dynamic positioning"
+      ],
+      "actionPlan": "Deploy inspection ROV to sever snag points and hoist net using heavy lift recovery sling."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Critical",
+      "ingestionHazard": "High for marine mammals and bottom feeding fish",
+      "degradationTimeEstimate": "Indefinite nylon persistence"
+    },
+    "sensorContext": {
+      "turbidityNtu": 8.5,
+      "waterTempC": 9.2,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-2026-1028-01",
+    "timestamp": "2026-10-28T09:45:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
+    "source": "Autonomous Buoy",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "Ligurian Sea Pelagic Sanctuary (Mediterranean)",
+      "latitude": 43.3421,
+      "longitude": 8.5218
+    },
+    "detectedObjects": [
+      {
+        "id": "det-6",
+        "label": "Submerged Vehicle Tire",
+        "category": "Rubber",
+        "confidence": 0.95,
+        "box_2d": [350, 280, 820, 740],
+        "material": "Vulcanized Synthetic Rubber",
+        "estimatedWeightKg": 11.2
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 72,
+      "reasoning": "Heavy toxic rubber leaching zinc and chemical plasticizers directly onto sensitive Posidonia oceanica seagrass meadow."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Within 7 days",
+      "equipmentRecommended": [
+        "Diver lift-bags",
+        "Rigid inflatable recovery vessel"
+      ],
+      "actionPlan": "Specialized scuba diver team deploy pneumatic lift bag to hoist tire without disturbing underlying seagrass roots."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Low",
+      "ingestionHazard": "Chemical leachate toxic to benthic invertebrates",
+      "degradationTimeEstimate": "Indefinite (synthetic vulcanized polymer)"
+    },
+    "sensorContext": {
+      "turbidityNtu": 6.2,
+      "waterTempC": 17.5,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-2026-1024-01",
+    "timestamp": "2026-10-24T14:10:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "source": "Satellite/Drone",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "Coral Triangle (Sulu Sea Monitoring Point)",
+      "latitude": 8.9213,
+      "longitude": 119.8924
+    },
+    "detectedObjects": [
+      {
+        "id": "det-7",
+        "label": "Plastic Film Bag & Packaging Wrappers",
+        "category": "Plastic",
+        "confidence": 0.92,
+        "box_2d": [310, 420, 580, 710],
+        "material": "Low-Density Polyethylene (LDPE)",
+        "estimatedWeightKg": 0.12
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "Moderate",
+      "score": 48,
+      "reasoning": "Translucent plastic bag drifting near hawksbill sea turtle habitat; mistaken visual silhouette for jellyfish prey."
+    },
+    "cleanupPriority": {
+      "priority": "Routine",
+      "timeframe": "Scheduled patrol sweep",
+      "equipmentRecommended": [
+        "Autonomous surface interceptor",
+        "Handheld scoop net"
+      ],
+      "actionPlan": "Dispatch autonomous solar marine drone interceptor on next coastal transect."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Medium",
+      "ingestionHazard": "Extreme ingestion hazard for sea turtles and cetaceans",
+      "degradationTimeEstimate": "20-50 years breaking into microplastics"
+    },
+    "sensorContext": {
+      "turbidityNtu": 3.8,
+      "waterTempC": 29.1,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-2026-1018-01",
+    "timestamp": "2026-10-18T11:30:00.000Z",
+    "imageUrl": "/sonar/sonar_benthic_plastic_waste.jpg",
+    "source": "Side-Scan Sonar Towfish",
+    "imagingMode": "Sonar",
+    "location": {
+      "name": "Arabian Sea (Mumbai Offshore Transect)",
+      "latitude": 18.922,
+      "longitude": 72.834
+    },
+    "detectedObjects": [
+      {
+        "id": "det-oct-8",
+        "label": "Dense Plastic & Rope Entanglement Cluster",
+        "category": "Plastic",
+        "confidence": 0.91,
+        "box_2d": [180, 200, 750, 790],
+        "material": "Polypropylene & High-Density Polymers",
+        "estimatedWeightKg": 8.4
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 76,
+      "reasoning": "High-density polymer conglomerate settled in estuarine shipping fairway, trapping organic sediment."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Within 5 days",
+      "equipmentRecommended": ["Benthic dredge skimmer", "Harbor cleanup vessel"],
+      "actionPlan": "Schedule harbor authority recovery craft with mechanical grabber."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "High",
+      "ingestionHazard": "High hazard for bottom feeding fish and crabs",
+      "degradationTimeEstimate": "350 years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 32.4,
+      "waterTempC": 27.8,
+      "waterClarity": "High Turbidity"
+    }
+  },
+  {
+    "id": "obs-2026-1012-01",
+    "timestamp": "2026-10-12T16:00:00.000Z",
+    "imageUrl": "/sonar/sonar_metal_cylinder.jpg",
+    "source": "Side-Scan Sonar Towfish",
+    "imagingMode": "Sonar",
+    "location": {
+      "name": "Gulf of Mexico Outer Continental Shelf",
+      "latitude": 27.854,
+      "longitude": -91.245
+    },
+    "detectedObjects": [
+      {
+        "id": "det-oct-9",
+        "label": "Derelict Steel Drum Container",
+        "category": "Metal",
+        "confidence": 0.96,
+        "box_2d": [280, 310, 690, 720],
+        "material": "Galvanized Carbon Steel",
+        "estimatedWeightKg": 22.5
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "Severe",
+      "score": 82,
+      "reasoning": "Industrial container with potential chemical or petroleum residue resting within deep-sea coral reef buffer."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Within 72 hours",
+      "equipmentRecommended": ["Heavy-duty ROV", "Salvage winch with environmental barrier"],
+      "actionPlan": "Dispatch certified environmental salvage team with hazmat containment protocols."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Low",
+      "ingestionHazard": "Corrosion leachate and heavy metal contamination",
+      "degradationTimeEstimate": "100-250 years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 7.2,
+      "waterTempC": 18.2,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-2026-1005-01",
+    "timestamp": "2026-10-05T08:15:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=800&q=80",
+    "source": "Field Camera",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "North Sea Marine Protected Area (Dogger Bank)",
+      "latitude": 54.721,
+      "longitude": 2.894
+    },
+    "detectedObjects": [
+      {
+        "id": "det-oct-10",
+        "label": "Styrofoam Fish Boxes & EPS Insulation Fragments",
+        "category": "Plastic",
+        "confidence": 0.95,
+        "box_2d": [210, 190, 680, 810],
+        "material": "Expanded Polystyrene (EPS)",
+        "estimatedWeightKg": 1.8
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "Moderate",
+      "score": 62,
+      "reasoning": "High-fragmentation polystyrene breaking into billions of buoyant micro-beads consumed by seabirds."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Within 4 days",
+      "equipmentRecommended": ["Fine-mesh coastal boom", "Surface skimmer vessel"],
+      "actionPlan": "Deploy surface collection booms before seasonal autumn gale breaks up the friable foam blocks."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Low",
+      "ingestionHazard": "Severe ingestion risk for surface feeding northern fulmars",
+      "degradationTimeEstimate": "500+ years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 12.1,
+      "waterTempC": 13.4,
+      "waterClarity": "Slightly Turbid"
+    }
+  },
+  {
+    "id": "obs-2026-0927-01",
+    "timestamp": "2026-09-27T13:40:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&w=800&q=80",
+    "source": "Autonomous Buoy",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "South China Sea Pelagic Corridor (Spratly Transect)",
+      "latitude": 10.125,
+      "longitude": 114.281
+    },
+    "detectedObjects": [
+      {
+        "id": "det-sep-1",
+        "label": "Polypropylene Packaging Strapping Bands (Coil)",
+        "category": "Plastic",
+        "confidence": 0.92,
+        "box_2d": [320, 260, 690, 730],
+        "material": "Polypropylene (PP)",
+        "estimatedWeightKg": 0.95
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 70,
+      "reasoning": "Closed loop strapping bands are infamous noose hazards for seals, turtles, and juvenile pelagic sharks."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Within 6 days",
+      "equipmentRecommended": ["Autonomous patrol drone with grabber arm"],
+      "actionPlan": "Dispatch autonomous surface vehicle on patrol route to snag and collect strapping loops."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Critical",
+      "ingestionHazard": "Moderate",
+      "degradationTimeEstimate": "300 years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 4.5,
+      "waterTempC": 29.5,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-2026-0918-01",
+    "timestamp": "2026-09-18T10:25:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
+    "source": "Field Camera",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "Caribbean Sea Coastal Barrier (Belize Barrier Reef)",
+      "latitude": 17.189,
+      "longitude": -87.892
+    },
+    "detectedObjects": [
+      {
+        "id": "det-sep-2",
+        "label": "Beverage Bottle Array with Algal Biofouling",
+        "category": "Plastic",
+        "confidence": 0.94,
+        "box_2d": [190, 230, 610, 640],
+        "material": "PET Plastic",
+        "estimatedWeightKg": 0.45
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "Low",
+      "score": 24,
+      "reasoning": "Isolated plastic bottles trapped in lagoon shallows; low current velocity preventing open ocean dispersal."
+    },
+    "cleanupPriority": {
+      "priority": "Routine",
+      "timeframe": "Weekly community beach sweep",
+      "equipmentRecommended": ["Volunteer coastal cleanup crew"],
+      "actionPlan": "Add GPS marker to Saturday community reef sweep route."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Low",
+      "ingestionHazard": "Moderate over extended degradation",
+      "degradationTimeEstimate": "450 years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 2.1,
+      "waterTempC": 28.9,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-2026-0822-01",
+    "timestamp": "2026-08-22T14:15:00.000Z",
+    "imageUrl": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80",
+    "source": "Autonomous Buoy",
+    "imagingMode": "Optical",
+    "location": {
+      "name": "Galapagos Marine Reserve Buffer Zone",
+      "latitude": -0.745,
+      "longitude": -90.542
+    },
+    "detectedObjects": [
+      {
+        "id": "det-aug-1",
+        "label": "Dislodged HDPE Chemical Jerrycan",
+        "category": "Plastic",
+        "confidence": 0.97,
+        "box_2d": [240, 290, 710, 760],
+        "material": "High-Density Polyethylene",
+        "estimatedWeightKg": 2.8
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 75,
+      "reasoning": "Floating container inside UNESCO biosphere buffer with risk of chemical fuel leakage near sea lion rookeries."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Within 24 hours",
+      "equipmentRecommended": ["Park Ranger patrol interceptor"],
+      "actionPlan": "Dispatch park ranger patrol boat to retrieve container."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Low",
+      "ingestionHazard": "High chemical hazard",
+      "degradationTimeEstimate": "400 years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 5.4,
+      "waterTempC": 21.0,
+      "waterClarity": "Clear"
+    }
+  }
+]

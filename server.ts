@@ -41,7 +41,14 @@ export interface DetectionRecord {
   id: string;
   timestamp: string;
   imageUrl: string;
-  source: 'Upload' | 'Autonomous Buoy' | 'Field Camera' | 'Satellite/Drone';
+  imagingMode?: 'Sonar' | 'Optical';
+  sonarMetadata?: {
+    frequencyKhz: number;
+    seabedDepthM: number;
+    sonarType: 'Side-Scan Sonar (SSS)' | 'Forward-Looking Sonar (FLS)' | 'Multibeam Bathymetry';
+    preprocessingPipeline: string[];
+  };
+  source: 'Upload' | 'Autonomous Buoy' | 'Field Camera' | 'Satellite/Drone' | 'Side-Scan Sonar Towfish';
   location: {
     name: string;
     latitude: number;
@@ -72,212 +79,40 @@ export interface DetectionRecord {
   };
 }
 
-// Initial verified observation database
-let observationHistory: DetectionRecord[] = [
-  {
-    id: 'obs-001',
-    timestamp: new Date(Date.now() - 3600000 * 3).toISOString(),
-    imageUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=800&q=80',
-    source: 'Autonomous Buoy',
-    location: {
-      name: 'North Pacific Subtropical Convergence (Gyre Delta)',
-      latitude: 34.2541,
-      longitude: -140.7812,
-    },
-    detectedObjects: [
-      {
-        id: 'det-1',
-        label: 'Abandoned Gillnet (Ghost Gear)',
-        category: 'Fishing Gear',
-        confidence: 0.96,
-        box_2d: [120, 150, 680, 820],
-        material: 'High-Density Polyethylene & Nylon Monofilament',
-        estimatedWeightKg: 18.5,
-      },
-      {
-        id: 'det-2',
-        label: 'Floating Polyethylene Bottle',
-        category: 'Plastic',
-        confidence: 0.94,
-        box_2d: [620, 240, 780, 390],
-        material: 'PET Plastic',
-        estimatedWeightKg: 0.08,
-      },
-      {
-        id: 'det-3',
-        label: 'Degraded Plastic Crate Fragment',
-        category: 'Plastic',
-        confidence: 0.88,
-        box_2d: [480, 700, 650, 890],
-        material: 'Rigid HDPE',
-        estimatedWeightKg: 1.2,
-      },
-    ],
-    objectCount: 3,
-    pollutionSeverity: {
-      level: 'Severe',
-      score: 88,
-      reasoning: 'Active heavy ghost fishing net presenting lethal marine entanglement hazard for cetaceans and pelagic fish combined with rigid plastics undergoing UV degradation.',
-    },
-    cleanupPriority: {
-      priority: 'Critical Response',
-      timeframe: 'Immediate (Within 48 hours)',
-      equipmentRecommended: ['Winch-assisted recovery crane', 'Specialized marine cutting shears', 'Containment boom'],
-      actionPlan: 'Deploy ocean vessel with grapple recovery winch to extract the tangled net before it sinks onto seafloor benthic habitats.',
-    },
-    marineEcosystemImpact: {
-      entanglementRisk: 'Critical',
-      ingestionHazard: 'Moderate for turtles and pelagic seabirds',
-      degradationTimeEstimate: '600+ years for nylon filaments',
-    },
-    sensorContext: {
-      turbidityNtu: 18.4,
-      waterTempC: 19.8,
-      waterClarity: 'Slightly Turbid',
-    },
-  },
-  {
-    id: 'obs-002',
-    timestamp: new Date(Date.now() - 3600000 * 18).toISOString(),
-    imageUrl: 'https://images.unsplash.com/photo-1618477388954-7852f32655ec?auto=format&fit=crop&w=800&q=80',
-    source: 'Field Camera',
-    location: {
-      name: 'Bay of Bengal Coastal Sanctuary (Cox Transect)',
-      latitude: 21.4272,
-      longitude: 91.9702,
-    },
-    detectedObjects: [
-      {
-        id: 'det-4',
-        label: 'Single-use Beverage Containers (Cluster)',
-        category: 'Plastic',
-        confidence: 0.93,
-        box_2d: [250, 220, 560, 590],
-        material: 'PET & Polypropylene Caps',
-        estimatedWeightKg: 0.65,
-      },
-      {
-        id: 'det-5',
-        label: 'Corroded Aluminum Beverage Can',
-        category: 'Metal',
-        confidence: 0.89,
-        box_2d: [600, 520, 720, 680],
-        material: 'Aluminum Alloy',
-        estimatedWeightKg: 0.15,
-      },
-    ],
-    objectCount: 2,
-    pollutionSeverity: {
-      level: 'Moderate',
-      score: 54,
-      reasoning: 'Concentrated coastal runoff debris with high risk of tidal transport into coastal mangrove nursery zones.',
-    },
-    cleanupPriority: {
-      priority: 'Priority',
-      timeframe: 'Within 5 days',
-      equipmentRecommended: ['Shallow-draft skimmer craft', 'Manual coastal retrieval nets'],
-      actionPlan: 'Coordinate with local coastal cleanup teams to intercept debris during low tide slack water.',
-    },
-    marineEcosystemImpact: {
-      entanglementRisk: 'Low',
-      ingestionHazard: 'High hazard of microplastic formation in shallow surf zone',
-      degradationTimeEstimate: '450 years for plastic bottles, 200 years for cans',
-    },
-    sensorContext: {
-      turbidityNtu: 24.1,
-      waterTempC: 28.2,
-      waterClarity: 'High Turbidity',
-    },
-  },
-  {
-    id: 'obs-003',
-    timestamp: new Date(Date.now() - 3600000 * 36).toISOString(),
-    imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800&q=80',
-    source: 'Autonomous Buoy',
-    location: {
-      name: 'Ligurian Sea Pelagic Sanctuary (Mediterranean)',
-      latitude: 43.3421,
-      longitude: 8.5218,
-    },
-    detectedObjects: [
-      {
-        id: 'det-6',
-        label: 'Submerged Vehicle Tire',
-        category: 'Rubber',
-        confidence: 0.95,
-        box_2d: [350, 280, 820, 740],
-        material: 'Vulcanized Synthetic Rubber',
-        estimatedWeightKg: 11.2,
-      },
-    ],
-    objectCount: 1,
-    pollutionSeverity: {
-      level: 'High',
-      score: 72,
-      reasoning: 'Heavy toxic rubber leaching zinc and chemical plasticizers (6PPD-quinone) directly onto sensitive Posidonia oceanica seagrass meadow.',
-    },
-    cleanupPriority: {
-      priority: 'Priority',
-      timeframe: 'Within 7 days',
-      equipmentRecommended: ['Diver lift-bags', 'Rigid inflatable recovery vessel'],
-      actionPlan: 'Specialized scuba diver team deploy pneumatic lift bag to gently hoist tire without disturbing underlying seagrass roots.',
-    },
-    marineEcosystemImpact: {
-      entanglementRisk: 'Low',
-      ingestionHazard: 'Chemical leachate toxic to benthic invertebrates',
-      degradationTimeEstimate: 'Indefinite (synthetic vulcanized polymer)',
-    },
-    sensorContext: {
-      turbidityNtu: 6.2,
-      waterTempC: 17.5,
-      waterClarity: 'Clear',
-    },
-  },
-  {
-    id: 'obs-004',
-    timestamp: new Date(Date.now() - 3600000 * 52).toISOString(),
-    imageUrl: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80',
-    source: 'Satellite/Drone',
-    location: {
-      name: 'Coral Triangle (Sulu Sea Monitoring Point)',
-      latitude: 8.9213,
-      longitude: 119.8924,
-    },
-    detectedObjects: [
-      {
-        id: 'det-7',
-        label: 'Plastic Film Bag & Packaging Wrappers',
-        category: 'Plastic',
-        confidence: 0.92,
-        box_2d: [310, 420, 580, 710],
-        material: 'Low-Density Polyethylene (LDPE)',
-        estimatedWeightKg: 0.12,
-      },
-    ],
-    objectCount: 1,
-    pollutionSeverity: {
-      level: 'Moderate',
-      score: 48,
-      reasoning: 'Translucent plastic bag drifting near hawksbill sea turtle habitat; mistaken visual silhouette for jellyfish prey.',
-    },
-    cleanupPriority: {
-      priority: 'Routine',
-      timeframe: 'Scheduled patrol sweep',
-      equipmentRecommended: ['Autonomous surface interceptor', 'Handheld scoop net'],
-      actionPlan: 'Dispatch autonomous solar marine drone interceptor on next coastal transect.',
-    },
-    marineEcosystemImpact: {
-      entanglementRisk: 'Medium',
-      ingestionHazard: 'Extreme ingestion hazard for sea turtles and cetaceans',
-      degradationTimeEstimate: '20-50 years breaking into microplastics',
-    },
-    sensorContext: {
-      turbidityNtu: 3.8,
-      waterTempC: 29.1,
-      waterClarity: 'Clear',
-    },
-  },
-];
+// Persistent Observation Data Storage (Saved and managed by Month & Date)
+const DATA_DIR = path.resolve(__dirname, 'data');
+const RECORDS_FILE = path.join(DATA_DIR, 'records.json');
+
+function loadRecordsFromDisk(): DetectionRecord[] {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (fs.existsSync(RECORDS_FILE)) {
+      const content = fs.readFileSync(RECORDS_FILE, 'utf-8');
+      const records = JSON.parse(content);
+      if (Array.isArray(records) && records.length > 0) {
+        return records;
+      }
+    }
+  } catch (err) {
+    console.error('Failed reading records from disk:', err);
+  }
+  return [];
+}
+
+function persistRecordsToDisk(records: DetectionRecord[]): void {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    fs.writeFileSync(RECORDS_FILE, JSON.stringify(records, null, 2), 'utf-8');
+  } catch (err) {
+    console.error('Failed persisting records to disk:', err);
+  }
+}
+
+let observationHistory: DetectionRecord[] = loadRecordsFromDisk();
 
 // Hardware & IoT Sensor Status (can be connected or offline)
 let hardwareState = {
@@ -332,23 +167,58 @@ let hardwareState = {
 
 // --- API ROUTES ---
 
-// 1. Get Observation History
-app.get('/api/history', (_req: Request, res: Response) => {
+// 1. Get Observation History (with optional month & date filtering and monthly metadata)
+app.get('/api/history', (req: Request, res: Response) => {
+  const month = req.query.month as string; // e.g. '2026-11'
+  const date = req.query.date as string;   // e.g. '2026-11-01'
+
+  let filtered = [...observationHistory];
+
+  if (date) {
+    filtered = filtered.filter((item) => (item.timestamp || '').startsWith(date));
+  } else if (month) {
+    filtered = filtered.filter((item) => (item.timestamp || '').startsWith(month));
+  }
+
+  // Generate monthly directory and breakdown
+  const monthlyMap: Record<string, { month: string; count: number; criticalCount: number; dates: Record<string, number> }> = {};
+  observationHistory.forEach((rec) => {
+    const ts = rec.timestamp || new Date().toISOString();
+    const m = ts.slice(0, 7); // 'YYYY-MM'
+    const d = ts.slice(0, 10); // 'YYYY-MM-DD'
+    if (!monthlyMap[m]) {
+      monthlyMap[m] = { month: m, count: 0, criticalCount: 0, dates: {} };
+    }
+    monthlyMap[m].count++;
+    if (rec.pollutionSeverity?.level === 'Severe' || rec.pollutionSeverity?.level === 'High') {
+      monthlyMap[m].criticalCount++;
+    }
+    monthlyMap[m].dates[d] = (monthlyMap[m].dates[d] || 0) + 1;
+  });
+
+  const availableMonths = Object.keys(monthlyMap).sort((a, b) => b.localeCompare(a)).map((k) => monthlyMap[k]);
+
   res.json({
     success: true,
-    data: observationHistory,
+    data: filtered,
     totalRecords: observationHistory.length,
+    filteredCount: filtered.length,
+    availableMonths,
+    activeMonth: month || null,
+    activeDate: date || null,
   });
 });
 
-// 2. Add New Observation to History
+// 2. Add New Observation to History (Persisted to disk by Date)
 app.post('/api/history', (req: Request, res: Response) => {
+  const customTimestamp = req.body.timestamp || new Date().toISOString();
   const newRecord: DetectionRecord = {
     ...req.body,
-    id: `obs-${Date.now().toString(36)}`,
-    timestamp: new Date().toISOString(),
+    id: req.body.id || `obs-${Date.now().toString(36)}`,
+    timestamp: customTimestamp,
   };
   observationHistory.unshift(newRecord);
+  persistRecordsToDisk(observationHistory);
   res.json({ success: true, data: newRecord });
 });
 
@@ -356,7 +226,88 @@ app.post('/api/history', (req: Request, res: Response) => {
 app.delete('/api/history/:id', (req: Request, res: Response) => {
   const { id } = req.params;
   observationHistory = observationHistory.filter((item) => item.id !== id);
+  persistRecordsToDisk(observationHistory);
   res.json({ success: true, message: 'Observation removed successfully' });
+});
+
+// 3b. Export Observations by Month or Date (CSV or JSON)
+app.get('/api/history/export', (req: Request, res: Response) => {
+  const month = req.query.month as string;
+  const date = req.query.date as string;
+  const format = req.query.format === 'json' ? 'json' : 'csv';
+
+  let list = [...observationHistory];
+  if (date) {
+    list = list.filter((r) => (r.timestamp || '').startsWith(date));
+  } else if (month) {
+    list = list.filter((r) => (r.timestamp || '').startsWith(month));
+  }
+
+  const exportFilename = `deepscan_records_${date || month || 'all'}`;
+
+  if (format === 'json') {
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Disposition', `attachment; filename="${exportFilename}.json"`);
+    res.send(JSON.stringify(list, null, 2));
+    return;
+  }
+
+  // Generate CSV with complete columns
+  const headers = [
+    'Record_ID',
+    'Date',
+    'Time_UTC',
+    'Observation_Site',
+    'Latitude',
+    'Longitude',
+    'Source',
+    'Imaging_Mode',
+    'Object_Count',
+    'Identified_Debris_Labels',
+    'Pollution_Severity_Level',
+    'Severity_Score_0_to_100',
+    'Cleanup_Priority',
+    'Estimated_Weight_KG',
+    'Turbidity_NTU',
+    'Water_Temp_C',
+    'Degradation_Timeframe',
+    'Action_Plan',
+  ];
+
+  const rows = list.map((r) => {
+    const ts = r.timestamp || new Date().toISOString();
+    const dateStr = ts.slice(0, 10);
+    const timeStr = ts.slice(11, 19);
+    const labels = (r.detectedObjects || []).map((o) => o.label).join('; ');
+    const totalWeight = (r.detectedObjects || []).reduce((acc, o) => acc + (o.estimatedWeightKg || 0), 0);
+    const escapeCsv = (str: any) => `"${String(str || '').replace(/"/g, '""')}"`;
+
+    return [
+      escapeCsv(r.id),
+      escapeCsv(dateStr),
+      escapeCsv(timeStr),
+      escapeCsv(r.location?.name || 'N/A'),
+      r.location?.latitude?.toFixed(4) || '',
+      r.location?.longitude?.toFixed(4) || '',
+      escapeCsv(r.source || 'N/A'),
+      escapeCsv(r.imagingMode || 'Optical'),
+      r.objectCount || (r.detectedObjects || []).length,
+      escapeCsv(labels),
+      escapeCsv(r.pollutionSeverity?.level || 'Low'),
+      r.pollutionSeverity?.score || 0,
+      escapeCsv(r.cleanupPriority?.priority || 'Routine'),
+      totalWeight.toFixed(2),
+      r.sensorContext?.turbidityNtu || '',
+      r.sensorContext?.waterTempC || '',
+      escapeCsv(r.marineEcosystemImpact?.degradationTimeEstimate || ''),
+      escapeCsv(r.cleanupPriority?.actionPlan || ''),
+    ].join(',');
+  });
+
+  const csv = [headers.join(','), ...rows].join('\n');
+  res.setHeader('Content-Type', 'text/csv');
+  res.setHeader('Content-Disposition', `attachment; filename="${exportFilename}.csv"`);
+  res.send(csv);
 });
 
 // 4. Hardware and Sensors Telemetry
@@ -703,8 +654,9 @@ Output strictly valid JSON matching this schema:
       },
     };
 
-    // Store in history
+    // Store in history and persist to disk
     observationHistory.unshift(newRecord);
+    persistRecordsToDisk(observationHistory);
 
     res.json({
       success: true,
@@ -736,7 +688,9 @@ Output strictly valid JSON matching this schema:
       marineEcosystemImpact: fallbackAnalysis.marineEcosystemImpact as any,
     };
 
+    // Store fallback record in history and persist to disk
     observationHistory.unshift(safeRecord);
+    persistRecordsToDisk(observationHistory);
     res.json({
       success: true,
       detection: safeRecord,
