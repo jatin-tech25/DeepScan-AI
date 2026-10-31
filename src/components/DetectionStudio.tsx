@@ -146,6 +146,304 @@ const ALL_PRESETS: PresetItem[] = [
   },
 ];
 
+// Default verified detection profiles for each dataset preset
+const getPresetRecord = (presetId: string): DetectionRecord => {
+  const p = ALL_PRESETS.find((x) => x.id === presetId) || ALL_PRESETS[0];
+  switch (presetId) {
+    case 's-1':
+      return {
+        id: 'rec-s-1',
+        timestamp: new Date().toISOString(),
+        imageUrl: '/sonar/sonar_ghost_net.jpg',
+        imagingMode: 'Sonar',
+        source: 'Side-Scan Sonar Towfish',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [
+          {
+            id: 'det-s1-1',
+            label: 'Abandoned Gillnet (Ghost Gear)',
+            category: 'Fishing Gear',
+            confidence: 0.96,
+            box_2d: [210, 180, 780, 840],
+            material: 'High-Density Polyethylene & Nylon Monofilament',
+            estimatedWeightKg: 18.5,
+            acousticShadowScore: 0.92,
+          },
+        ],
+        objectCount: 1,
+        pollutionSeverity: {
+          level: 'Severe',
+          score: 88,
+          reasoning: 'Active heavy ghost fishing net presenting lethal marine entanglement hazard for cetaceans and bottom-dwelling marine fauna.',
+        },
+        cleanupPriority: {
+          priority: 'Critical Response',
+          timeframe: 'Immediate (Within 48 hours)',
+          equipmentRecommended: ['Winch-assisted recovery crane', 'Specialized marine cutting shears', 'Containment boom'],
+          actionPlan: 'Deploy ocean vessel with grapple recovery winch to extract the tangled net before it sinks into benthic habitats.',
+        },
+        marineEcosystemImpact: {
+          entanglementRisk: 'Critical',
+          ingestionHazard: 'Moderate for turtles and pelagic seabirds',
+          degradationTimeEstimate: '600+ years for nylon filaments',
+        },
+        sensorContext: { turbidityNtu: 18.4, waterTempC: 19.8, waterClarity: 'Slightly Turbid' },
+      };
+    case 's-2':
+      return {
+        id: 'rec-s-2',
+        timestamp: new Date().toISOString(),
+        imageUrl: '/sonar/sonar_metal_cylinder.jpg',
+        imagingMode: 'Sonar',
+        source: 'Side-Scan Sonar Towfish',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [
+          {
+            id: 'det-s2-1',
+            label: 'Submerged Steel Pipe / Cylinder',
+            category: 'Metal',
+            confidence: 0.94,
+            box_2d: [280, 310, 690, 720],
+            material: 'Galvanized Carbon Steel',
+            estimatedWeightKg: 22.0,
+            acousticShadowScore: 0.88,
+          },
+        ],
+        objectCount: 1,
+        pollutionSeverity: {
+          level: 'High',
+          score: 72,
+          reasoning: 'Industrial metallic container/pipe resting on seabed with potential heavy metal leaching into shipping corridor.',
+        },
+        cleanupPriority: {
+          priority: 'Priority',
+          timeframe: 'Within 7 days',
+          equipmentRecommended: ['Inspection ROV with dynamic positioning', 'Heavy lift recovery sling'],
+          actionPlan: 'Dispatch certified salvage craft to hoist metallic cylinder without disturbing sediment layer.',
+        },
+        marineEcosystemImpact: {
+          entanglementRisk: 'Low',
+          ingestionHazard: 'Corrosion leachate and heavy metal contamination',
+          degradationTimeEstimate: '100-250 years',
+        },
+        sensorContext: { turbidityNtu: 7.2, waterTempC: 18.2, waterClarity: 'Clear' },
+      };
+    case 's-3':
+      return {
+        id: 'rec-s-3',
+        timestamp: new Date().toISOString(),
+        imageUrl: '/sonar/sonar_benthic_plastic_waste.jpg',
+        imagingMode: 'Sonar',
+        source: 'Side-Scan Sonar Towfish',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [
+          {
+            id: 'det-s3-1',
+            label: 'High-Density Polymer Crate Fragments',
+            category: 'Plastic',
+            confidence: 0.91,
+            box_2d: [180, 200, 750, 790],
+            material: 'Rigid High-Density Polyethylene (HDPE)',
+            estimatedWeightKg: 8.4,
+            acousticShadowScore: 0.79,
+          },
+        ],
+        objectCount: 1,
+        pollutionSeverity: {
+          level: 'High',
+          score: 76,
+          reasoning: 'High-density plastic conglomerate settled in estuarine outflow, trapping organic sediment and degrading into microplastics.',
+        },
+        cleanupPriority: {
+          priority: 'Priority',
+          timeframe: 'Within 5 days',
+          equipmentRecommended: ['Benthic dredge skimmer', 'Harbor cleanup craft'],
+          actionPlan: 'Schedule harbor authority recovery vessel with mechanical grabber arm.',
+        },
+        marineEcosystemImpact: {
+          entanglementRisk: 'High',
+          ingestionHazard: 'High hazard for bottom feeding fish and crabs',
+          degradationTimeEstimate: '450 years',
+        },
+        sensorContext: { turbidityNtu: 32.4, waterTempC: 27.8, waterClarity: 'High Turbidity' },
+      };
+    case 's-4':
+      return {
+        id: 'rec-s-4',
+        timestamp: new Date().toISOString(),
+        imageUrl: '/sonar/sonar_clean_seafloor.jpg',
+        imagingMode: 'Sonar',
+        source: 'Side-Scan Sonar Towfish',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [],
+        objectCount: 0,
+        pollutionSeverity: {
+          level: 'Low',
+          score: 5,
+          reasoning: 'Clean seafloor baseline. Homogeneous sand ripples with zero synthetic target backscatter or anomalous acoustic shadows.',
+        },
+        cleanupPriority: {
+          priority: 'Routine',
+          timeframe: 'No action required',
+          equipmentRecommended: ['Routine acoustic survey vessel'],
+          actionPlan: 'Nominal seafloor environment. Maintain standard conservation monitoring.',
+        },
+        marineEcosystemImpact: {
+          entanglementRisk: 'Low',
+          ingestionHazard: 'Zero synthetic hazard',
+          degradationTimeEstimate: 'Natural Marine Biosphere',
+        },
+        sensorContext: { turbidityNtu: 2.4, waterTempC: 28.5, waterClarity: 'Clear' },
+      };
+    case 'o-1':
+      return {
+        id: 'rec-o-1',
+        timestamp: new Date().toISOString(),
+        imageUrl: 'https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=1200&q=80',
+        imagingMode: 'Optical',
+        source: 'Autonomous Buoy',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [
+          {
+            id: 'det-o1-1',
+            label: 'Abandoned Gillnet (Ghost Gear)',
+            category: 'Fishing Gear',
+            confidence: 0.96,
+            box_2d: [120, 150, 680, 820],
+            material: 'Nylon Monofilament & Polyethylene Ropes',
+            estimatedWeightKg: 18.5,
+          },
+          {
+            id: 'det-o1-2',
+            label: 'Floating Polyethylene Bottle',
+            category: 'Plastic',
+            confidence: 0.94,
+            box_2d: [620, 240, 780, 390],
+            material: 'PET Plastic',
+            estimatedWeightKg: 0.08,
+          },
+        ],
+        objectCount: 2,
+        pollutionSeverity: {
+          level: 'Severe',
+          score: 88,
+          reasoning: 'Active ghost fishing net presenting lethal marine entanglement hazard for cetaceans and sea turtles.',
+        },
+        cleanupPriority: {
+          priority: 'Critical Response',
+          timeframe: 'Immediate (Within 48 hours)',
+          equipmentRecommended: ['Winch-assisted recovery crane', 'Specialized marine cutting shears'],
+          actionPlan: 'Deploy recovery vessel with grapple winch to retrieve tangled nets.',
+        },
+        marineEcosystemImpact: {
+          entanglementRisk: 'Critical',
+          ingestionHazard: 'Moderate for turtles and pelagic seabirds',
+          degradationTimeEstimate: '600+ years for nylon filaments',
+        },
+        sensorContext: { turbidityNtu: 18.4, waterTempC: 19.8, waterClarity: 'Slightly Turbid' },
+      };
+    case 'o-2':
+      return {
+        id: 'rec-o-2',
+        timestamp: new Date().toISOString(),
+        imageUrl: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=1200&q=80',
+        imagingMode: 'Optical',
+        source: 'Field Camera',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [
+          {
+            id: 'det-o2-1',
+            label: 'Single-use Beverage Containers (Cluster)',
+            category: 'Plastic',
+            confidence: 0.93,
+            box_2d: [250, 220, 560, 590],
+            material: 'PET & Polypropylene Caps',
+            estimatedWeightKg: 0.65,
+          },
+          {
+            id: 'det-o2-2',
+            label: 'Corroded Aluminum Beverage Can',
+            category: 'Metal',
+            confidence: 0.89,
+            box_2d: [600, 520, 720, 680],
+            material: 'Aluminum Alloy',
+            estimatedWeightKg: 0.15,
+          },
+        ],
+        objectCount: 2,
+        pollutionSeverity: {
+          level: 'Moderate',
+          score: 54,
+          reasoning: 'Concentrated coastal runoff debris with high risk of tidal transport into coastal mangrove nursery zones.',
+        },
+        cleanupPriority: {
+          priority: 'Priority',
+          timeframe: 'Within 5 days',
+          equipmentRecommended: ['Shallow-draft skimmer craft', 'Manual coastal retrieval nets'],
+          actionPlan: 'Coordinate with local coastal cleanup teams to intercept debris during low tide.',
+        },
+        marineEcosystemImpact: {
+          entanglementRisk: 'Low',
+          ingestionHazard: 'High hazard of microplastic formation in surf zone',
+          degradationTimeEstimate: '450 years for plastic bottles',
+        },
+        sensorContext: { turbidityNtu: 24.1, waterTempC: 28.2, waterClarity: 'High Turbidity' },
+      };
+    case 'o-3':
+      return {
+        id: 'rec-o-3',
+        timestamp: new Date().toISOString(),
+        imageUrl: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=1200&q=80',
+        imagingMode: 'Optical',
+        source: 'Autonomous Buoy',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [
+          {
+            id: 'det-o3-1',
+            label: 'Submerged Vehicle Tire',
+            category: 'Rubber',
+            confidence: 0.95,
+            box_2d: [350, 280, 820, 740],
+            material: 'Vulcanized Synthetic Rubber',
+            estimatedWeightKg: 11.2,
+          },
+        ],
+        objectCount: 1,
+        pollutionSeverity: {
+          level: 'High',
+          score: 72,
+          reasoning: 'Heavy toxic rubber leaching zinc and chemical plasticizers directly onto sensitive Posidonia seagrass meadow.',
+        },
+        cleanupPriority: {
+          priority: 'Priority',
+          timeframe: 'Within 7 days',
+          equipmentRecommended: ['Diver lift-bags', 'Rigid inflatable recovery vessel'],
+          actionPlan: 'Scuba diver team deploy pneumatic lift bag to gently hoist tire.',
+        },
+        marineEcosystemImpact: {
+          entanglementRisk: 'Low',
+          ingestionHazard: 'Chemical leachate toxic to benthic invertebrates',
+          degradationTimeEstimate: 'Indefinite synthetic vulcanized rubber',
+        },
+        sensorContext: { turbidityNtu: 6.2, waterTempC: 17.5, waterClarity: 'Clear' },
+      };
+    default:
+      return {
+        id: `rec-${presetId}`,
+        timestamp: new Date().toISOString(),
+        imageUrl: p.url,
+        imagingMode: p.mode === 'sonar' ? 'Sonar' : 'Optical',
+        source: p.mode === 'sonar' ? 'Side-Scan Sonar Towfish' : 'Field Camera',
+        location: { name: p.locationName, latitude: p.lat, longitude: p.lng },
+        detectedObjects: [],
+        objectCount: 0,
+        pollutionSeverity: { level: 'Low', score: 10, reasoning: 'Initial baseline scan.' },
+        cleanupPriority: { priority: 'Routine', timeframe: 'Routine survey', equipmentRecommended: [], actionPlan: 'Maintain monitoring.' },
+        marineEcosystemImpact: { entanglementRisk: 'Low', ingestionHazard: 'Low', degradationTimeEstimate: 'N/A' },
+      };
+  }
+};
+
 export const DetectionStudio: React.FC<DetectionStudioProps> = ({
   onDetectionAdded,
   recentDetections,
@@ -159,13 +457,11 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
   const [locationName, setLocationName] = useState<string>(ALL_PRESETS[0].locationName);
   const [coordinates, setCoordinates] = useState({ lat: ALL_PRESETS[0].lat, lng: ALL_PRESETS[0].lng });
   const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
-  const [analysisResult, setAnalysisResult] = useState<DetectionRecord | null>(() => {
-    // Match first preset or null
-    return recentDetections.find((d) => d.imageUrl === ALL_PRESETS[0].url) || recentDetections[0] || null;
-  });
+  const [analysisResult, setAnalysisResult] = useState<DetectionRecord>(() => getPresetRecord('s-1'));
   const [hoveredBoxId, setHoveredBoxId] = useState<string | null>(null);
   const [showBoxes, setShowBoxes] = useState<boolean>(true);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [recentlyExecuted, setRecentlyExecuted] = useState<boolean>(false);
 
   // OpenCV Preprocessing Filter Simulation (Matching Slide 4 & 5)
   const [opencvFilter, setOpencvFilter] = useState<'raw' | 'clahe' | 'shadow'>('raw');
@@ -173,7 +469,6 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
   // Modals for Hackathon presentation
   const [isDossierModalOpen, setIsDossierModalOpen] = useState<boolean>(false);
   const [isTimelineModalOpen, setIsTimelineModalOpen] = useState<boolean>(false);
-  const [isResultsModalOpen, setIsResultsModalOpen] = useState<boolean>(false);
 
   const lastProcessedScanIdRef = useRef<number | null>(null);
 
@@ -192,7 +487,6 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
       } else {
         setActiveImagingMode('optical');
       }
-      setIsResultsModalOpen(true);
     }
   }, [inspectedRecord]);
 
@@ -283,19 +577,43 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
         canvas.width = width;
         canvas.height = height;
         const ctx = canvas.getContext('2d');
+        let finalImageUrl = (event.target?.result as string) || '';
         if (ctx) {
           ctx.drawImage(img, 0, 0, width, height);
-          const optimizedDataUrl = canvas.toDataURL('image/jpeg', 0.88);
-          setSelectedImage(optimizedDataUrl);
-        } else {
-          setSelectedImage(event.target?.result as string);
+          finalImageUrl = canvas.toDataURL('image/jpeg', 0.88);
         }
+        setSelectedImage(finalImageUrl);
 
-        setLocationName(`Survey Field Scan #${Math.floor(100 + Math.random() * 900)}`);
-        setAnalysisResult(null);
-        setCoordinates({
-          lat: +(18 + (Math.random() * 10 - 5)).toFixed(4),
-          lng: +(76 + (Math.random() * 15 - 7)).toFixed(4),
+        const newLocName = `Survey Field Scan #${Math.floor(100 + Math.random() * 900)}`;
+        const newLat = +(18 + (Math.random() * 10 - 5)).toFixed(4);
+        const newLng = +(76 + (Math.random() * 15 - 7)).toFixed(4);
+        setLocationName(newLocName);
+        setCoordinates({ lat: newLat, lng: newLng });
+        setAnalysisResult({
+          id: `scan-${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          imageUrl: finalImageUrl,
+          source: 'Upload',
+          imagingMode: activeImagingMode === 'sonar' ? 'Sonar' : 'Optical',
+          location: { name: newLocName, latitude: newLat, longitude: newLng },
+          detectedObjects: [],
+          objectCount: 0,
+          pollutionSeverity: {
+            level: 'Low',
+            score: 0,
+            reasoning: 'Custom scan uploaded and calibrated. Click "Execute DeepScan AI" above to run YOLOv8 object detection and pollution analysis.',
+          },
+          cleanupPriority: {
+            priority: 'Routine',
+            timeframe: 'Awaiting inference',
+            equipmentRecommended: ['Autonomous survey craft'],
+            actionPlan: 'Execute DeepScan AI above to detect marine debris targets, calculate pollution index, and determine cleanup protocol.',
+          },
+          marineEcosystemImpact: {
+            entanglementRisk: 'Low',
+            ingestionHazard: 'Pending evaluation',
+            degradationTimeEstimate: 'Awaiting scan',
+          },
         });
         setErrorMessage(null);
         soundEngine.playUiClick();
@@ -340,7 +658,8 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
       if (data.success && data.detection) {
         setAnalysisResult(data.detection);
         onDetectionAdded(data.detection);
-        setIsResultsModalOpen(true);
+        setRecentlyExecuted(true);
+        setTimeout(() => setRecentlyExecuted(false), 5000);
 
         soundEngine.stopScanningSound();
         if (data.detection.objectCount > 0) {
@@ -511,6 +830,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
           {/* Mode Switcher */}
           <div className="flex items-center p-1 rounded-xl bg-slate-900 border border-slate-800 text-xs">
             <button
+              type="button"
               onClick={() => {
                 setActiveImagingMode('sonar');
                 const firstSonar = ALL_PRESETS.find((p) => p.mode === 'sonar');
@@ -519,6 +839,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
                   setSelectedImage(firstSonar.url);
                   setLocationName(firstSonar.locationName);
                   setCoordinates({ lat: firstSonar.lat, lng: firstSonar.lng });
+                  setAnalysisResult(getPresetRecord(firstSonar.id));
                 }
                 soundEngine.playUiClick();
               }}
@@ -532,6 +853,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
               <span>Side-Scan Sonar (SSS)</span>
             </button>
             <button
+              type="button"
               onClick={() => {
                 setActiveImagingMode('optical');
                 const firstOpt = ALL_PRESETS.find((p) => p.mode === 'optical');
@@ -540,6 +862,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
                   setSelectedImage(firstOpt.url);
                   setLocationName(firstOpt.locationName);
                   setCoordinates({ lat: firstOpt.lat, lng: firstOpt.lng });
+                  setAnalysisResult(getPresetRecord(firstOpt.id));
                 }
                 soundEngine.playUiClick();
               }}
@@ -562,6 +885,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
             onChange={handleFileUpload}
           />
           <button
+            type="button"
             onClick={() => fileInputRef.current?.click()}
             className="px-3.5 py-2 text-xs font-medium text-slate-200 bg-slate-900 hover:bg-slate-800 border border-slate-700 rounded-lg flex items-center gap-2 transition-colors whitespace-nowrap"
           >
@@ -570,6 +894,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
           </button>
 
           <button
+            type="button"
             onClick={runDetection}
             disabled={isAnalyzing}
             className={`px-5 py-2 text-xs font-semibold rounded-lg flex items-center gap-2 transition-all whitespace-nowrap ${
@@ -581,7 +906,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
             {isAnalyzing ? (
               <>
                 <RefreshCw className="w-4 h-4 animate-spin" />
-                <span>Running YOLOv8 Model...</span>
+                <span>Running Inference Model...</span>
               </>
             ) : (
               <>
@@ -590,6 +915,13 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
               </>
             )}
           </button>
+
+          {recentlyExecuted && (
+            <span className="px-3 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-mono flex items-center gap-1.5 animate-in fade-in duration-300">
+              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Inference Complete — Updated Inline</span>
+            </span>
+          )}
         </div>
       </div>
 
@@ -618,6 +950,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
             const isSelected = selectedPresetId === preset.id;
             return (
               <button
+                type="button"
                 key={preset.id}
                 onClick={() => {
                   setSelectedPresetId(preset.id);
@@ -629,7 +962,7 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
                   const existing = recentDetections.find(
                     (d) => d.imageUrl === preset.url || d.location?.name === preset.locationName
                   );
-                  setAnalysisResult(existing || null);
+                  setAnalysisResult(existing || getPresetRecord(preset.id));
                 }}
                 className={`p-3 rounded-xl text-left border transition-all ${
                   isSelected
@@ -849,199 +1182,158 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
 
         {/* Right Column: Severity, Cleanup Plan, & Degradation Timeline (5 cols) */}
         <div className="lg:col-span-5 space-y-5">
-          {!analysisResult ? (
-            <div className="ocean-glass-card rounded-2xl p-7 border border-cyan-500/30 text-center space-y-4">
-              <div className="w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center justify-center mx-auto">
-                <Sparkles className="w-6 h-6 animate-pulse" />
+          {/* Pollution Severity Score Card */}
+          <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
+                Pollution Severity Analysis
+              </span>
+              <span
+                className={`text-xs px-2.5 py-1 rounded-md border font-semibold ${getSeverityStyle(
+                  analysisResult?.pollutionSeverity?.level || 'Low'
+                )}`}
+              >
+                {analysisResult?.pollutionSeverity?.level || 'Low'} Severity
+              </span>
+            </div>
+
+            {/* Score display */}
+            <div className="flex items-baseline gap-3 mb-3">
+              <span className="text-4xl font-extrabold font-mono text-white tabular-nums">
+                {analysisResult?.pollutionSeverity?.score ?? 10}
+              </span>
+              <span className="text-sm text-slate-400 font-mono">/ 100 Pollution Index</span>
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden mb-4 border border-slate-800">
+              <div
+                className={`h-full transition-all duration-700 ${
+                  (analysisResult?.pollutionSeverity?.score ?? 0) >= 75
+                    ? 'bg-rose-500'
+                    : (analysisResult?.pollutionSeverity?.score ?? 0) >= 50
+                    ? 'bg-amber-400'
+                    : 'bg-cyan-400'
+                }`}
+                style={{ width: `${Math.max(analysisResult?.pollutionSeverity?.score ?? 10, 5)}%` }}
+              />
+            </div>
+
+            <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/50 p-3.5 rounded-xl border border-slate-800">
+              {analysisResult?.pollutionSeverity?.reasoning ||
+                'Baseline clean oceanic sample. Zero synthetic targets detected across seabed scan.'}
+            </p>
+          </div>
+
+          {/* Interactive Polymer Degradation Timeline */}
+          <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
+                <Clock className="w-4 h-4 text-cyan-400" />
+                <span>Environmental Lifespan & Degradation</span>
               </div>
-              <div>
-                <h3 className="text-base font-bold text-white">Image Loaded & Ready for AI Scan</h3>
-                <p className="text-xs text-slate-400 mt-1.5 max-w-sm mx-auto leading-relaxed">
-                  Click below to execute YOLOv8 and Gemini vision analysis. DeepScan AI will detect marine debris, calculate pollution index, and compute recovery protocols.
+              <span className="text-xs font-mono text-cyan-300 font-bold">
+                {analysisResult?.marineEcosystemImpact?.degradationTimeEstimate || '450+ Years'}
+              </span>
+            </div>
+
+            <p className="text-xs text-slate-400">
+              Degradation trajectory for synthetic polymers and fishing nets in marine seawater:
+            </p>
+
+            <div className="space-y-2.5 text-xs">
+              <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                <div className="flex items-center justify-between font-semibold text-rose-300 text-[11px]">
+                  <span>Stage 1 (0 - 5 Years): Macro-Entanglement</span>
+                  <span>Active Lethal Phase</span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Intact ghost gillnets and rigid plastics continuously trap pelagic fish, dolphins, and turtles.
                 </p>
               </div>
+
+              <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                <div className="flex items-center justify-between font-semibold text-amber-300 text-[11px]">
+                  <span>Stage 2 (5 - 50 Years): Photo-Oxidation</span>
+                  <span>Embrittlement</span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Solar UV radiation and wave turbulence shatter polymers into jagged brittle fragments.
+                </p>
+              </div>
+
+              <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
+                <div className="flex items-center justify-between font-semibold text-cyan-300 text-[11px]">
+                  <span>Stage 3 (50 - 200+ Years): Microplastics</span>
+                  <span>Trophic Toxicity</span>
+                </div>
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Fragmentation into particles &lt;5mm ingested by zooplankton, entering commercial fish stock.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Cleanup Priority & Logistics Recommendation */}
+          <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
+                <ShieldAlert className="w-4 h-4 text-cyan-400" />
+                <span>Maritime Intervention Protocol</span>
+              </div>
+              <span className="text-xs font-mono text-cyan-300">
+                {analysisResult?.cleanupPriority?.priority || 'Routine'}
+              </span>
+            </div>
+
+            <div className="text-xs space-y-3">
+              <div className="flex items-start justify-between py-2 border-b border-slate-800/80">
+                <span className="text-slate-400">Response Window:</span>
+                <span className="text-white font-medium">
+                  {analysisResult?.cleanupPriority?.timeframe || 'Standard patrol'}
+                </span>
+              </div>
+
+              <div>
+                <span className="text-slate-400 block mb-1.5">Recommended Equipment:</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {Array.isArray(analysisResult?.cleanupPriority?.equipmentRecommended) ? (
+                    analysisResult.cleanupPriority.equipmentRecommended.map((eq, i) => (
+                      <span
+                        key={i}
+                        className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]"
+                      >
+                        {eq}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]">
+                      {analysisResult?.cleanupPriority?.equipmentRecommended || 'Autonomous surface interceptor'}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <div className="pt-2">
+                <span className="text-slate-400 block mb-1">Operational Action Plan:</span>
+                <p className="text-slate-300 text-[11px] leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+                  {analysisResult?.cleanupPriority?.actionPlan ||
+                    'Maintain periodic automated acoustic sweeps to monitor seasonal debris accumulation.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Buttons */}
+            <div className="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
               <button
-                onClick={runDetection}
-                disabled={isAnalyzing}
-                className="px-6 py-2.5 bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-slate-950 font-bold text-xs rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all flex items-center gap-2 mx-auto disabled:opacity-50"
+                onClick={() => setIsDossierModalOpen(true)}
+                className="text-xs px-3.5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-400 text-slate-950 font-bold hover:from-cyan-400 hover:to-teal-300 flex items-center gap-1.5 transition-all shadow-md"
               >
-                {isAnalyzing ? (
-                  <>
-                    <RefreshCw className="w-4 h-4 animate-spin" />
-                    <span>Analyzing Image...</span>
-                  </>
-                ) : (
-                  <>
-                    <Sparkles className="w-4 h-4" />
-                    <span>Execute DeepScan AI on this Image</span>
-                  </>
-                )}
+                <FileText className="w-3.5 h-3.5" />
+                <span>Open Dispatch Dossier</span>
               </button>
             </div>
-          ) : (
-            <>
-              {/* Pollution Severity Score Card */}
-              <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">
-                    Pollution Severity Analysis
-                  </span>
-                  <span
-                    className={`text-xs px-2.5 py-1 rounded-md border font-semibold ${getSeverityStyle(
-                      analysisResult?.pollutionSeverity?.level || 'Low'
-                    )}`}
-                  >
-                    {analysisResult?.pollutionSeverity?.level || 'Low'} Severity
-                  </span>
-                </div>
-
-                {/* Score display */}
-                <div className="flex items-baseline gap-3 mb-3">
-                  <span className="text-4xl font-extrabold font-mono text-white tabular-nums">
-                    {analysisResult?.pollutionSeverity?.score ?? 10}
-                  </span>
-                  <span className="text-sm text-slate-400 font-mono">/ 100 Pollution Index</span>
-                </div>
-
-                {/* Progress bar */}
-                <div className="w-full h-2 bg-slate-900 rounded-full overflow-hidden mb-4 border border-slate-800">
-                  <div
-                    className={`h-full transition-all duration-700 ${
-                      (analysisResult?.pollutionSeverity?.score ?? 0) >= 75
-                        ? 'bg-rose-500'
-                        : (analysisResult?.pollutionSeverity?.score ?? 0) >= 50
-                        ? 'bg-amber-400'
-                        : 'bg-cyan-400'
-                    }`}
-                    style={{ width: `${analysisResult?.pollutionSeverity?.score ?? 10}%` }}
-                  />
-                </div>
-
-                <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/50 p-3.5 rounded-xl border border-slate-800">
-                  {analysisResult?.pollutionSeverity?.reasoning ||
-                    'Baseline clean oceanic sample. Zero synthetic targets detected across seabed scan.'}
-                </p>
-              </div>
-
-              {/* Interactive Polymer Degradation Timeline */}
-              <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
-                    <Clock className="w-4 h-4 text-cyan-400" />
-                    <span>Environmental Lifespan & Degradation</span>
-                  </div>
-                  <span className="text-xs font-mono text-cyan-300 font-bold">
-                    {analysisResult?.marineEcosystemImpact?.degradationTimeEstimate || '450+ Years'}
-                  </span>
-                </div>
-
-                <p className="text-xs text-slate-400">
-                  Degradation trajectory for synthetic polymers and fishing nets in marine seawater:
-                </p>
-
-                <div className="space-y-2.5 text-xs">
-                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                    <div className="flex items-center justify-between font-semibold text-rose-300 text-[11px]">
-                      <span>Stage 1 (0 - 5 Years): Macro-Entanglement</span>
-                      <span>Active Lethal Phase</span>
-                    </div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Intact ghost gillnets and rigid plastics continuously trap pelagic fish, dolphins, and turtles.
-                    </p>
-                  </div>
-
-                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                    <div className="flex items-center justify-between font-semibold text-amber-300 text-[11px]">
-                      <span>Stage 2 (5 - 50 Years): Photo-Oxidation</span>
-                      <span>Embrittlement</span>
-                    </div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Solar UV radiation and wave turbulence shatter polymers into jagged brittle fragments.
-                    </p>
-                  </div>
-
-                  <div className="p-2.5 rounded-xl bg-slate-900/60 border border-slate-800/80">
-                    <div className="flex items-center justify-between font-semibold text-cyan-300 text-[11px]">
-                      <span>Stage 3 (50 - 200+ Years): Microplastics</span>
-                      <span>Trophic Toxicity</span>
-                    </div>
-                    <p className="text-[11px] text-slate-400 mt-1">
-                      Fragmentation into particles &lt;5mm ingested by zooplankton, entering commercial fish stock.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Cleanup Priority & Logistics Recommendation */}
-              <div className="ocean-glass-card rounded-2xl p-6 border border-slate-800 space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2 text-slate-200 font-semibold text-sm">
-                    <ShieldAlert className="w-4 h-4 text-cyan-400" />
-                    <span>Maritime Intervention Protocol</span>
-                  </div>
-                  <span className="text-xs font-mono text-cyan-300">
-                    {analysisResult?.cleanupPriority?.priority || 'Routine'}
-                  </span>
-                </div>
-
-                <div className="text-xs space-y-3">
-                  <div className="flex items-start justify-between py-2 border-b border-slate-800/80">
-                    <span className="text-slate-400">Response Window:</span>
-                    <span className="text-white font-medium">
-                      {analysisResult?.cleanupPriority?.timeframe || 'Standard patrol'}
-                    </span>
-                  </div>
-
-                  <div>
-                    <span className="text-slate-400 block mb-1.5">Recommended Equipment:</span>
-                    <div className="flex flex-wrap gap-1.5">
-                      {Array.isArray(analysisResult?.cleanupPriority?.equipmentRecommended) ? (
-                        analysisResult.cleanupPriority.equipmentRecommended.map((eq, i) => (
-                          <span
-                            key={i}
-                            className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]"
-                          >
-                            {eq}
-                          </span>
-                        ))
-                      ) : (
-                        <span className="px-2 py-0.5 rounded bg-slate-900 text-slate-300 border border-slate-800 text-[11px]">
-                          {analysisResult?.cleanupPriority?.equipmentRecommended || 'Autonomous surface interceptor'}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="pt-2">
-                    <span className="text-slate-400 block mb-1">Operational Action Plan:</span>
-                    <p className="text-slate-300 text-[11px] leading-relaxed bg-slate-900/60 p-3 rounded-lg border border-slate-800">
-                      {analysisResult?.cleanupPriority?.actionPlan ||
-                        'Maintain periodic automated acoustic sweeps to monitor seasonal debris accumulation.'}
-                    </p>
-                  </div>
-                </div>
-
-                {/* Buttons */}
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
-                  <button
-                    onClick={() => setIsDossierModalOpen(true)}
-                    className="text-xs px-3.5 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-teal-400 text-slate-950 font-bold hover:from-cyan-400 hover:to-teal-300 flex items-center gap-1.5 transition-all shadow-md"
-                  >
-                    <FileText className="w-3.5 h-3.5" />
-                    <span>Open Dispatch Dossier</span>
-                  </button>
-
-                  <button
-                    onClick={() => setIsResultsModalOpen(true)}
-                    className="text-xs px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 flex items-center gap-1 transition-all"
-                    title="View full results breakdown"
-                  >
-                    <span>View Report</span>
-                  </button>
-                </div>
-              </div>
-            </>
-          )}
+          </div>
         </div>
 
       </div>
@@ -1171,155 +1463,6 @@ export const DetectionStudio: React.FC<DetectionStudioProps> = ({
               </button>
             </div>
 
-          </div>
-        </div>
-      )}
-
-      {/* Instant Vision Detection Results Modal (Opens automatically upon scan execution) */}
-      {isResultsModalOpen && analysisResult && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md overflow-y-auto">
-          <div className="bg-slate-900 border border-cyan-500/50 rounded-2xl max-w-2xl w-full p-6 sm:p-7 space-y-5 shadow-2xl text-slate-100 animate-in fade-in zoom-in-95 duration-200">
-            {/* Header */}
-            <div className="flex items-start justify-between pb-3 border-b border-slate-800">
-              <div className="flex items-center gap-3">
-                <div className="p-2 bg-emerald-500/10 border border-emerald-500/30 rounded-xl text-emerald-400">
-                  <CheckCircle2 className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-lg font-bold text-white">AI Vision Analysis Complete</h2>
-                    <span className="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-[10px] font-mono font-semibold">
-                      {activeImagingMode === 'sonar' ? 'Acoustic Sonar' : 'Optical RGB'}
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-400 mt-0.5">
-                    {locationName} · {coordinates.lat.toFixed(4)}°N, {coordinates.lng.toFixed(4)}°E
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => setIsResultsModalOpen(false)}
-                className="p-1 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Quick Metrics Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-medium block">Debris Found</span>
-                <span className="text-xl font-bold font-mono text-cyan-300">
-                  {analysisResult.detectedObjects?.length || 0} {(analysisResult.detectedObjects?.length || 0) === 1 ? 'item' : 'items'}
-                </span>
-              </div>
-              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-medium block">Pollution Score</span>
-                <span className={`text-xl font-bold font-mono ${
-                  analysisResult.pollutionSeverity?.level === 'Severe'
-                    ? 'text-rose-400'
-                    : analysisResult.pollutionSeverity?.level === 'High'
-                    ? 'text-amber-400'
-                    : 'text-emerald-400'
-                }`}>
-                  {analysisResult.pollutionSeverity?.score ?? 0}/100
-                </span>
-              </div>
-              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-medium block">Total Dry Mass</span>
-                <span className="text-xl font-bold font-mono text-white">
-                  {(analysisResult.detectedObjects || []).reduce((acc, o) => acc + (o.estimatedWeightKg || 0), 0).toFixed(1)} kg
-                </span>
-              </div>
-              <div className="p-3 bg-slate-950/60 rounded-xl border border-slate-800">
-                <span className="text-[10px] text-slate-400 uppercase font-medium block">Action Urgency</span>
-                <span className="text-sm font-bold text-cyan-400 truncate block mt-0.5">
-                  {analysisResult.cleanupPriority?.priority || 'Routine'}
-                </span>
-              </div>
-            </div>
-
-            {/* Forensic Object Breakdown */}
-            <div className="space-y-2">
-              <span className="text-xs font-semibold text-slate-300 uppercase tracking-wide">
-                Identified Marine Debris Items
-              </span>
-              {analysisResult.detectedObjects && analysisResult.detectedObjects.length > 0 ? (
-                <div className="max-h-48 overflow-y-auto space-y-2 pr-1">
-                  {analysisResult.detectedObjects.map((item, idx) => (
-                    <div
-                      key={item.id || idx}
-                      className="p-3 bg-slate-950/50 rounded-xl border border-slate-800 flex items-center justify-between text-xs"
-                    >
-                      <div>
-                        <div className="font-semibold text-white">{item.label}</div>
-                        <div className="text-[11px] text-slate-400 mt-0.5">
-                          {item.material} · Est. {item.estimatedWeightKg} kg
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-mono font-medium">
-                          {(item.confidence * 100).toFixed(0)}% confidence
-                        </span>
-                        <div className="text-[10px] text-slate-500 uppercase mt-0.5">{item.category}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="p-4 bg-slate-950/40 rounded-xl border border-slate-800 text-center text-xs text-slate-400">
-                  Clean baseline seabed — zero synthetic debris or fishing gear detected.
-                </div>
-              )}
-            </div>
-
-            {/* Ecological Impact & Plan */}
-            <div className="p-3.5 bg-slate-950/60 rounded-xl border border-slate-800 space-y-2 text-xs">
-              <div className="flex items-center justify-between">
-                <span className="text-slate-400">Degradation Lifespan:</span>
-                <span className="font-mono text-cyan-300 font-bold">
-                  {analysisResult.marineEcosystemImpact?.degradationTimeEstimate || 'N/A'}
-                </span>
-              </div>
-              <div className="text-slate-300 leading-relaxed text-[11px] bg-slate-900/60 p-2.5 rounded-lg border border-slate-800/80">
-                <strong className="text-white block mb-0.5">Intervention Action Plan:</strong>
-                {analysisResult.cleanupPriority?.actionPlan || 'Nominal baseline monitoring.'}
-              </div>
-            </div>
-
-            {/* Modal Bottom Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-slate-800">
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => {
-                    setIsResultsModalOpen(false);
-                    setIsDossierModalOpen(true);
-                  }}
-                  className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5"
-                >
-                  <FileText className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Full Dispatch Dossier</span>
-                </button>
-                {onNavigateToArchive && (
-                  <button
-                    onClick={() => {
-                      setIsResultsModalOpen(false);
-                      onNavigateToArchive();
-                    }}
-                    className="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-medium transition-colors flex items-center gap-1.5"
-                  >
-                    <span>View in Records & Analytics</span>
-                  </button>
-                )}
-              </div>
-
-              <button
-                onClick={() => setIsResultsModalOpen(false)}
-                className="px-5 py-2 bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-300 hover:to-teal-300 text-slate-950 font-bold rounded-xl text-xs transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)]"
-              >
-                Inspect on Interactive Canvas
-              </button>
-            </div>
           </div>
         </div>
       )}

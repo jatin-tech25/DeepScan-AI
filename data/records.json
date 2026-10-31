@@ -1,5 +1,346 @@
 [
   {
+    "id": "obs-mvwudzhd",
+    "timestamp": "2026-10-31T20:17:01.153Z",
+    "imageUrl": "/sonar/sonar_ghost_net.jpg",
+    "source": "Upload",
+    "location": {
+      "name": "Mumbai Coastline Transect (Arabian Sea)",
+      "latitude": 19.1245,
+      "longitude": 72.8258
+    },
+    "detectedObjects": [
+      {
+        "label": "Abandoned Fishing Net",
+        "category": "Fishing Gear",
+        "confidence": 0.99,
+        "box_2d": [
+          270,
+          329,
+          725,
+          663
+        ],
+        "material": "Nylon/Synthetic Polypropylene",
+        "estimatedWeightKg": 25,
+        "id": "det-1793477821153-1"
+      }
+    ],
+    "objectCount": 1,
+    "pollutionSeverity": {
+      "level": "High",
+      "score": 8,
+      "reasoning": "A large, dense mass of tangled ghost fishing gear (nets and lines) is embedded in the seabed, posing a significant entanglement hazard to marine megafauna and benthic organisms."
+    },
+    "cleanupPriority": {
+      "priority": "Critical Response",
+      "timeframe": "Immediate",
+      "equipmentRecommended": [
+        "ROV with specialized cutting tools",
+        "Divers for sensitive habitat removal",
+        "Lifting bags"
+      ],
+      "actionPlan": "Deploy a specialized recovery team to carefully extract the netting without further disturbing the seabed, as ghost gear poses ongoing environmental threats."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "Critical",
+      "ingestionHazard": "Moderate (breakdown into microplastics)",
+      "degradationTimeEstimate": "450+ years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 14.3,
+      "waterTempC": 21.6,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-mvwubxk5",
+    "timestamp": "2026-10-31T20:15:25.349Z",
+    "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73073a0f?auto=format&fit=crop&w=1200&q=80",
+    "source": "Upload",
+    "location": {
+      "name": "North Pacific Subtropical Gyre",
+      "latitude": 34.2541,
+      "longitude": -140.7812
+    },
+    "detectedObjects": [
+      {
+        "label": "Plastic Film Fragment",
+        "category": "Plastic",
+        "confidence": 0.98,
+        "box_2d": [
+          108,
+          608,
+          273,
+          779
+        ],
+        "material": "Polyethylene",
+        "estimatedWeightKg": 0.01,
+        "id": "det-1793477725349-1"
+      },
+      {
+        "label": "Plastic Bag Bundle",
+        "category": "Plastic",
+        "confidence": 0.99,
+        "box_2d": [
+          44,
+          48,
+          893,
+          467
+        ],
+        "material": "Polyethylene/Plastic Composite",
+        "estimatedWeightKg": 0.25,
+        "id": "det-1793477725349-2"
+      },
+      {
+        "label": "Fishing Rope/Line",
+        "category": "Fishing Gear",
+        "confidence": 0.96,
+        "box_2d": [
+          323,
+          143,
+          853,
+          269
+        ],
+        "material": "Nylon/Polypropylene",
+        "estimatedWeightKg": 0.08,
+        "id": "det-1793477725349-3"
+      },
+      {
+        "label": "Plastic Ribbon/Tape",
+        "category": "Plastic",
+        "confidence": 0.94,
+        "box_2d": [
+          538,
+          252,
+          856,
+          804
+        ],
+        "material": "Polypropylene",
+        "estimatedWeightKg": 0.03,
+        "id": "det-1793477725349-4"
+      }
+    ],
+    "objectCount": 4,
+    "pollutionSeverity": {
+      "level": "Moderate",
+      "score": 6,
+      "reasoning": "The image captures a significant amount of entangled plastic waste and discarded synthetic materials directly interacting with a school of fish. The presence of these items poses a clear entanglement and ingestion risk to local marine life."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Immediate",
+      "equipmentRecommended": [
+        "Hand-held collection nets",
+        "Divers",
+        "Marine debris removal vessel"
+      ],
+      "actionPlan": "Deploy a local diving team to manually retrieve the plastic bundle and debris, as it is currently floating in an open water column where it is highly mobile and prone to affecting marine fauna."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "High",
+      "ingestionHazard": "High for filter feeders and smaller fish species present",
+      "degradationTimeEstimate": "450+ years"
+    },
+    "sensorContext": {
+      "turbidityNtu": 14.8,
+      "waterTempC": 21.7,
+      "waterClarity": "Clear"
+    }
+  },
+  {
+    "id": "obs-mvwubk13",
+    "timestamp": "2026-10-31T20:15:07.815Z",
+    "imageUrl": "https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=1200&q=80",
+    "source": "Upload",
+    "location": {
+      "name": "Bay of Bengal Littoral Zone",
+      "latitude": 21.4272,
+      "longitude": 91.9702
+    },
+    "detectedObjects": [
+      {
+        "label": "PET Plastic Bottle",
+        "category": "Plastic",
+        "confidence": 0.98,
+        "box_2d": [
+          278,
+          67,
+          472,
+          335
+        ],
+        "material": "Polyethylene terephthalate",
+        "estimatedWeightKg": 0.03,
+        "id": "det-1793477707815-1"
+      },
+      {
+        "label": "PET Plastic Bottle",
+        "category": "Plastic",
+        "confidence": 0.97,
+        "box_2d": [
+          547,
+          0,
+          715,
+          435
+        ],
+        "material": "Polyethylene terephthalate",
+        "estimatedWeightKg": 0.03,
+        "id": "det-1793477707815-2"
+      },
+      {
+        "label": "PET Plastic Bottle",
+        "category": "Plastic",
+        "confidence": 0.99,
+        "box_2d": [
+          689,
+          165,
+          875,
+          565
+        ],
+        "material": "Polyethylene terephthalate",
+        "estimatedWeightKg": 0.03,
+        "id": "det-1793477707815-3"
+      },
+      {
+        "label": "Glass Bottle",
+        "category": "Other Debris",
+        "confidence": 0.96,
+        "box_2d": [
+          384,
+          325,
+          570,
+          700
+        ],
+        "material": "Glass",
+        "estimatedWeightKg": 0.25,
+        "id": "det-1793477707815-4"
+      },
+      {
+        "label": "Abandoned Fishing Net",
+        "category": "Fishing Gear",
+        "confidence": 0.95,
+        "box_2d": [
+          267,
+          584,
+          843,
+          915
+        ],
+        "material": "Nylon/Polypropylene",
+        "estimatedWeightKg": 0.5,
+        "id": "det-1793477707815-5"
+      },
+      {
+        "label": "Glass Bottle",
+        "category": "Other Debris",
+        "confidence": 0.92,
+        "box_2d": [
+          555,
+          475,
+          775,
+          799
+        ],
+        "material": "Glass",
+        "estimatedWeightKg": 0.3,
+        "id": "det-1793477707815-6"
+      },
+      {
+        "label": "PET Plastic Bottle",
+        "category": "Plastic",
+        "confidence": 0.88,
+        "box_2d": [
+          188,
+          730,
+          240,
+          885
+        ],
+        "material": "Polyethylene terephthalate",
+        "estimatedWeightKg": 0.02,
+        "id": "det-1793477707815-7"
+      },
+      {
+        "label": "PET Plastic Bottle",
+        "category": "Plastic",
+        "confidence": 0.91,
+        "box_2d": [
+          226,
+          720,
+          317,
+          945
+        ],
+        "material": "Polyethylene terephthalate",
+        "estimatedWeightKg": 0.03,
+        "id": "det-1793477707815-8"
+      },
+      {
+        "label": "Flip Flop",
+        "category": "Plastic",
+        "confidence": 0.94,
+        "box_2d": [
+          384,
+          825,
+          660,
+          945
+        ],
+        "material": "Polyurethane/Rubber",
+        "estimatedWeightKg": 0.15,
+        "id": "det-1793477707815-9"
+      },
+      {
+        "label": "Glass Bottle",
+        "category": "Other Debris",
+        "confidence": 0.93,
+        "box_2d": [
+          112,
+          824,
+          160,
+          935
+        ],
+        "material": "Glass",
+        "estimatedWeightKg": 0.2,
+        "id": "det-1793477707815-10"
+      },
+      {
+        "label": "Plastic Buoy",
+        "category": "Plastic",
+        "confidence": 0.96,
+        "box_2d": [
+          703,
+          575,
+          873,
+          725
+        ],
+        "material": "Polyethylene",
+        "estimatedWeightKg": 0.1,
+        "id": "det-1793477707815-11"
+      }
+    ],
+    "objectCount": 11,
+    "pollutionSeverity": {
+      "level": "Moderate",
+      "score": 7,
+      "reasoning": "The area contains a high concentration of persistent marine plastics, glass, and ghost fishing gear which pose entanglement and microplastic degradation risks."
+    },
+    "cleanupPriority": {
+      "priority": "Priority",
+      "timeframe": "Within 48 hours",
+      "equipmentRecommended": [
+        "Manual collection tools",
+        "Heavy duty waste bags",
+        "Sifters for micro-debris"
+      ],
+      "actionPlan": "Organize a beach clean-up to remove visible plastics and hazardous ghost nets to prevent further ecosystem contamination."
+    },
+    "marineEcosystemImpact": {
+      "entanglementRisk": "High",
+      "ingestionHazard": "High risk for local shorebirds and marine life due to fragmented plastics and debris.",
+      "degradationTimeEstimate": "450+ years for plastics; glass remains indefinitely."
+    },
+    "sensorContext": {
+      "turbidityNtu": 15,
+      "waterTempC": 21.1,
+      "waterClarity": "Clear"
+    }
+  },
+  {
     "id": "obs-mvwu0l11",
     "timestamp": "2026-10-31T20:06:35.893Z",
     "imageUrl": "/sonar/sonar_ghost_net.jpg",
